@@ -1,6 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import TopView from '../views/TopView.vue'
+import SelectView from '../views/SelectView.vue'
+import AboutView from '../views/AboutView.vue'
+import ShindanView from '../views/ShindanView.vue'
+import JobView from '../views/JobView.vue'
+import AdmissionView from '../views/AdmissionView.vue'
+import EventView from '../views/EventView.vue'
+import ClassAboutView from '../views/ClassAboutView.vue'
 
 Vue.use(VueRouter)
 
@@ -8,17 +15,52 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: TopView
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: function () {
-      return import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-    }
+    path: '/select',
+    name: 'select',
+    component: SelectView
+  },
+  {
+    path: '/about-idd',
+    name: 'about-idd',
+    component: AboutView
+  },
+  {
+    path: '/shindan',
+    name: 'shindan',
+    component: ShindanView
+  },
+  {
+    path: '/job',
+    name: 'job',
+    component: JobView
+  },
+  {
+    path: '/admission',
+    name: 'admission',
+    component: AdmissionView
+  },
+  {
+    path: '/event',
+    name: 'event',
+    component: EventView
+  },
+  {
+    path: '/event/:pageName',
+    name: 'event-page',
+    component: EventView
+  },
+  {
+    path: '/event/:pageName/:sectionName',
+    name: 'event-section',
+    component: EventView
+  },
+  {
+    path: '/class-about/:classname',
+    name: 'class-about',
+    component: ClassAboutView
   }
 ]
 
