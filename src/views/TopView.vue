@@ -26,6 +26,8 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/scss/main.scss';
+@import "@/assets/scss/_breakpoint.scss";
+@import "@/assets/scss/_mixin.scss";
 
 * {
   color: $white;
@@ -48,12 +50,17 @@ a {
   .menu {
     position: absolute;
     top: 5%;
-    left: 89%;
+    right: 11%;
     z-index: 3;
 
     img {
       width: 96px;
       height: 96px;
+    }
+
+    @include mq(lg) {
+      top: 5%;
+      right: 5%;
     }
   }
 
@@ -83,6 +90,10 @@ a {
 
       a {
         padding: 29vw 89vh 29vw 89vh;
+
+        @include mq(lg) {
+          font-size: $font-x;
+        }
       }
     }
 
@@ -93,16 +104,35 @@ a {
 
       position: absolute;
       transform: translate(-50%, -50%);
+
+      @include mq(lg) {
+        writing-mode: vertical-rl;
+        text-orientation: upright;
+        margin: 0;
+        padding: 0;
+      }
     }
 
     .about-1 {
       top: 10%;
       left: 25%;
+
+      @include mq(lg) {
+        transform: translate(0, 0);
+        top: 10%;
+        left: 0;
+      }
     }
 
     .about-2 {
       top: 71%;
       left: 78%;
+
+      @include mq(lg) {
+        transform: translate(0, -50%);
+        bottom: -10%;
+        right: 0;
+      }
     }
 
     .rotate-text {
@@ -110,6 +140,10 @@ a {
 
       position: absolute;
       transform: translate(-50%, -50%);
+
+      @include mq(lg) {
+        display: none;
+      }
     }
 
     .rotate-text-1 {
@@ -144,6 +178,12 @@ a {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+
+    @include mq(lg) {
+      width: 100vw;
+      height: 100vh;
+      background-size: contain;
+    }
   }
 }
 </style>

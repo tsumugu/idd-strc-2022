@@ -1,262 +1,115 @@
 <template>
   <main class="shindan">
-    <HeaderComponent />
-    <div class="shindan-dialog-wrapper" v-show="isShowDialog">
-      <div class="shindan-dialog">
-        <p class="shindan-dialog-title font-bely">ERROR!</p>
-        <p class="shindan-dialog-text font-bunkyu-midashi">選択されていない項目があります<br>全ての項目を選択してください</p>
-        <button class="shindan-dialog-button" v-on:click="() => { this.isShowDialog = false; }">×</button>
+    <div class="result-section-classes-bg result-section-classes-bg-short" v-show="currPageNumber == 2"></div>
+    <div class="shindan-inner">
+      <HeaderComponent />
+      <div class="shindan-dialog-wrapper" v-show="isShowDialog">
+        <div class="shindan-dialog">
+          <p class="shindan-dialog-title font-bely">ERROR!</p>
+          <p class="shindan-dialog-text font-bunkyu-midashi">選択されていない項目があります<br>全ての項目を選択してください</p>
+          <button class="shindan-dialog-button" v-on:click="() => { this.isShowDialog = false; }">×</button>
+        </div>
       </div>
-    </div>
-    <div class="top-bg" v-show="currPageNumber == 0"><img src="@/assets/imgs/shindan/top2.png"></div>
-    <div class="shindan-main">
-      <section class="about-section" v-show="currPageNumber == 0">
-        <p class="tategaki tategaki-1 font-bunkyu-midashi drop-shadow">どんな授業がある？</p>
-        <p class="tategaki tategaki-2 font-bunkyu-midashi drop-shadow">自分に合う授業って？</p>
-        <div class="about-shindan">
-          <p class="about-shindan-title font-bunkyu-midashi">情デ診断とは...</p>
-          <p class="about-shindan-text">美大って絵だけじゃない！<br>
-            あなたの好きなことが活かせる授業が見つかるかも？<br>
-            質問に答えて自分に合う情デの授業を知ってみよう<br>
-            他にもどんな授業があるか見れる！<br>
-            授業は大学２年生の時の内容です</p>
-        </div>
-        <p class="tategaki tategaki-3 font-bunkyu-midashi">全部で<span class="number">１２</span>種類！</p>
-        <div class="about-img"><img src="@/assets/imgs/shindan/classes.png"></div>
-        <div class="start-button"><button class="font-blenny-black" v-on:click="gotoPage('1')">start</button></div>
-      </section>
-      <section class="shindan-section" v-show="currPageNumber == 1">
-        <ul>
-          <li v-for="question in questions" :key="question.index">
-            <p class="shindan-text">Q<span class="shindan-index-number font-bunkyu-db">{{ question.index + 1
-            }}</span><span class="shindan-text-spacer"></span>{{ question.questionTexts[0] }}</p>
-            <div class="answer-select">
-              <div class="answer-select-item">
-                <span class="answer-select-item-inner answer-select-item-inner-1">
-                  <input type="radio" :name=question.index :id='`${question.index}option0`' value="1"
-                    v-model="$data['answer' + question.index]" />
-                  <label :for='`${question.index}option0`'>とても思う</label>
-                </span>
-              </div>
-              <div class="answer-select-item">
-                <span class="answer-select-item-inner answer-select-item-inner-2">
-                  <input type="radio" :name=question.index :id='`${question.index}option1`' value="2"
-                    v-model="$data['answer' + question.index]" />
-                  <label :for='`${question.index}option1`'>まあ思う</label>
-                </span>
-              </div>
-              <div class="answer-select-item">
-                <span class="answer-select-item-inner answer-select-item-inner-3">
-                  <input type="radio" :name=question.index :id='`${question.index}option2`' value="3"
-                    v-model="$data['answer' + question.index]" />
-                  <label :for='`${question.index}option2`'>わからない</label>
-                </span>
-              </div>
-              <div class="answer-select-item">
-                <span class="answer-select-item-inner answer-select-item-inner-4">
-                  <input type="radio" :name=question.index :id='`${question.index}option3`' value="4"
-                    v-model="$data['answer' + question.index]" />
-                  <label :for='`${question.index}option3`'>あまり思わない</label>
-                </span>
-              </div>
-              <div class="answer-select-item">
-                <span class="answer-select-item-inner answer-select-item-inner-5">
-                  <input type="radio" :name=question.index :id='`${question.index}option4`' value="5"
-                    v-model="$data['answer' + question.index]" />
-                  <label :for='`${question.index}option4`'>全く思わない</label>
-                </span>
-              </div>
-            </div>
-          </li>
-        </ul>
-        <button v-on:click="calcResult" class="answer-result-button">結果を見る</button>
-      </section>
-      <section class="result-section" v-show="currPageNumber == 2">
-        <h2 class="font-bunkyu-midashi">おすすめ授業3選</h2>
-        <ul class="result-section-classes">
-          <li v-for="(classinfo, index) in results" :key=index class="result-section-classes-contents">
-            <!--<p>{{ index + 1 }}位: {{ classinfo.className }}</p>
-            <p class="font-bunkyu-midashi">{{ classinfo.className }}</p>-->
-            <router-link to="/class-about/uiux"><img :src=classinfo.img></router-link>
-          </li>
-          <div class="result-section-classes-bg"></div>
-        </ul>
-        <div class="result-section-area2">
-          <div class="result-section-area2-message">
-            <p class="font-bunkyu-midashi">{{ resultGenres[0] }}や{{ resultGenres[1] }}に興味があるあなたは</p>
-            <p class="font-bunkyu-midashi">この授業を履修するのがオススメ！</p>
+      <div class="top-bg" v-show="currPageNumber == 0"><img src="@/assets/imgs/shindan/top2.png"></div>
+      <div class="shindan-main">
+        <section class="about-section" v-show="currPageNumber == 0">
+          <p class="tategaki tategaki-1 font-bunkyu-midashi drop-shadow">どんな授業がある？</p>
+          <p class="tategaki tategaki-2 font-bunkyu-midashi drop-shadow">自分に合う授業って？</p>
+          <div class="about-shindan">
+            <p class="about-shindan-title font-bunkyu-midashi">情デ診断とは...</p>
+            <p class="about-shindan-text">美大って絵だけじゃない！<br>
+              あなたの好きなことが活かせる授業が見つかるかも？<br>
+              質問に答えて自分に合う情デの授業を知ってみよう<br>
+              他にもどんな授業があるか見れる！<br>
+              授業は大学２年生の時の内容です</p>
           </div>
-          <div class="result-section-area2-retryandshare">
-            <div class="result-section-area2-retryandshare-retry">
-              <button class="font-bunkyu-midashi" v-on:click="retry">もう一度やり直す</button>
+          <p class="tategaki tategaki-3 font-bunkyu-midashi">全部で<span class="number">１２</span>種類！</p>
+          <div class="about-img"><img src="@/assets/imgs/shindan/classes.png"></div>
+          <div class="start-button"><button class="font-blenny-black" v-on:click="gotoPage('1')">start</button></div>
+        </section>
+        <section class="shindan-section" v-show="currPageNumber == 1">
+          <ul>
+            <li v-for="question in questions" :key="question.index">
+              <p class="shindan-text">Q<span class="shindan-index-number font-bunkyu-db">{{ question.index + 1
+}}</span><span class="shindan-text-spacer"></span>{{ question.questionTexts[0] }}</p>
+              <div class="answer-select">
+                <div class="answer-select-item">
+                  <span class="answer-select-item-inner answer-select-item-inner-1">
+                    <input type="radio" :name=question.index :id='`${question.index}option0`' value="1"
+                      v-model="$data['answer' + question.index]" />
+                    <label :for='`${question.index}option0`'>とても思う</label>
+                  </span>
+                </div>
+                <div class="answer-select-item">
+                  <span class="answer-select-item-inner answer-select-item-inner-2">
+                    <input type="radio" :name=question.index :id='`${question.index}option1`' value="2"
+                      v-model="$data['answer' + question.index]" />
+                    <label :for='`${question.index}option1`'>まあ思う</label>
+                  </span>
+                </div>
+                <div class="answer-select-item">
+                  <span class="answer-select-item-inner answer-select-item-inner-3">
+                    <input type="radio" :name=question.index :id='`${question.index}option2`' value="3"
+                      v-model="$data['answer' + question.index]" />
+                    <label :for='`${question.index}option2`'>わからない</label>
+                  </span>
+                </div>
+                <div class="answer-select-item">
+                  <span class="answer-select-item-inner answer-select-item-inner-4">
+                    <input type="radio" :name=question.index :id='`${question.index}option3`' value="4"
+                      v-model="$data['answer' + question.index]" />
+                    <label :for='`${question.index}option3`'>あまり思わない</label>
+                  </span>
+                </div>
+                <div class="answer-select-item">
+                  <span class="answer-select-item-inner answer-select-item-inner-5">
+                    <input type="radio" :name=question.index :id='`${question.index}option4`' value="5"
+                      v-model="$data['answer' + question.index]" />
+                    <label :for='`${question.index}option4`'>全く思わない</label>
+                  </span>
+                </div>
+              </div>
+            </li>
+          </ul>
+          <button v-on:click="calcResult" class="answer-result-button">結果を見る</button>
+        </section>
+        <section class="result-section" v-show="currPageNumber == 2">
+          <h2 class="result-section-title font-bunkyu-midashi">おすすめ授業</h2>
+          <ul class="result-section-classes">
+            <li v-for="(classinfo, index) in resultClasses" :key=index class="result-section-classes-contents"
+              v-bind:class="['result-section-classes-item-' + resultClasses.length + '-' + index]">
+              <router-link to="/class-about/uiux"><img :src=classinfo.img></router-link>
+            </li>
+          </ul>
+          <div class="result-section-area2">
+            <div class="result-section-area2-message">
+              <p class="font-bunkyu-midashi"><span>{{ resultGenreName }}</span>に興味があるあなたは</p>
+              <p class="font-bunkyu-midashi">この授業を履修するのがオススメ！</p>
             </div>
-            <div class="result-section-area2-retryandshare-share">
-              <button class="font-bunkyu-midashi" v-on:click="share">
-                <img src="@/assets/imgs/shindan/share.svg">
-                <p>結果をシェアする</p>
-              </button>
+            <div class="result-section-area2-retryandshare">
+              <div class="result-section-area2-retryandshare-retry">
+                <button class="font-bunkyu-midashi" v-on:click="retry">もう一度やり直す</button>
+              </div>
+              <div class="result-section-area2-retryandshare-share">
+                <button class="font-bunkyu-midashi" v-on:click="share">
+                  <img src="@/assets/imgs/shindan/share.svg">
+                  <p>結果をシェアする</p>
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
+      <FooterComponent />
     </div>
-    <FooterComponent />
   </main>
 </template>
 
 <script>
+import { abilities } from "../assets/shindan_info/abilities";
+import { questions } from "../assets/shindan_info/questions";
 import HeaderComponent from '@/components/HeaderComponent.vue';
 import FooterComponent from '@/components/FooterComponent.vue';
-
-const questions = [
-  {
-    index: 0,
-    name: "画力",
-    questionTexts: [
-      "絵を描く事は好きですか？"
-    ]
-  },
-  {
-    index: 1,
-    name: "脳力",
-    questionTexts: [
-      "物事を深く考えるのは好きですか？"
-    ]
-  },
-  {
-    index: 2,
-    name: "コミュニケーション能力",
-    questionTexts: [
-      "人と話すことは好きですか？"
-    ]
-  },
-  {
-    index: 3,
-    name: "思考力",
-    questionTexts: [
-      "なにかするとき効率を求めますか？"
-    ]
-  },
-  {
-    index: 4,
-    name: "表現力",
-    questionTexts: [
-      "自分を表現するのが好きですか？",
-      "人に説明するのは慣れていますか？"
-    ]
-  }
-];
-
-const abilities = [
-  {
-    genreName: "UI/UX",
-    score: {
-      "0": 2, // 画力は5段階中の2という意味
-      "1": 4,
-      "2": 4,
-      "3": 5,
-      "4": 4
-    },
-    class: [
-      {
-        className: "UI/UXデザイン",
-        img: require("@/assets/imgs/shindan/class/ui.png")
-      },
-      {
-        className: "情報設計演習",
-        img: require("@/assets/imgs/shindan/class/jouhou.png")
-      }
-    ]
-  },
-  {
-    genreName: "グラフィック",
-    score: {
-      "0": 5,
-      "1": 2,
-      "2": 2,
-      "3": 3,
-      "4": 4
-    },
-    class: [
-      {
-        className: "インフォグラフィック演習",
-        img: require("@/assets/imgs/shindan/class/info.png")
-      },
-      {
-        className: "文字表現演習",
-        img: require("@/assets/imgs/shindan/class/moji.png")
-      }
-    ]
-  },
-  {
-    genreName: "プログラミング",
-    score: {
-      "0": 1,
-      "1": 5,
-      "2": 3,
-      "3": 5,
-      "4": 1
-    },
-    class: [
-      {
-        className: "インタラクティブ演習",
-        img: require("@/assets/imgs/shindan/class/intara.png")
-      },
-      {
-        className: "プログラミング演習",
-        img: require("@/assets/imgs/shindan/class/programing.png")
-      }
-    ]
-  },
-  {
-    genreName: "映像",
-    score: {
-      "0": 1,
-      "1": 3,
-      "2": 3,
-      "3": 3,
-      "4": 5
-    },
-    class: [
-      {
-        className: "演出表現演習",
-        img: require("@/assets/imgs/shindan/class/ensyutu.png")
-      },
-      {
-        className: "ストーリーテリング演習",
-        img: require("@/assets/imgs/shindan/class/sutoteri.png")
-      }
-    ]
-  },
-  {
-    genreName: "企画",
-    score: {
-      "0": 3,
-      "1": 5,
-      "2": 5,
-      "3": 3,
-      "4": 5
-    },
-    class: [
-      {
-        className: "コンテンツデザイン演習",
-        img: require("@/assets/imgs/shindan/class/kondeza.png")
-      },
-      {
-        className: "知識と表現演習",
-        img: require("@/assets/imgs/shindan/class/tisiki.png")
-      },
-      {
-        className: "3D表現演習",
-        img: require("@/assets/imgs/shindan/class/3d.png")
-      },
-      {
-        className: "展示計画演習",
-        img: require("@/assets/imgs/shindan/class/tenji.png")
-      },
-    ]
-  },
-];
 export default {
   name: 'ShindanView',
   components: {
@@ -273,9 +126,8 @@ export default {
     },
     calcResult: function () {
       // 回答チェック
-      for (const index of Object.keys(abilities)) {
+      for (const index of Object.keys(questions)) {
         if (isNaN(this.$data['answer' + index]) || this.$data['answer' + index] == null) {
-          //alert("すべて入力してください");
           this.isShowDialog = true;
           return;
         }
@@ -293,18 +145,18 @@ export default {
           const res = Math.abs(score - myScore);
           resSum += res;
         }
-        resMap.set(ability.genreName, resSum);
+        resMap.set(ability, resSum);
       }
-      let sortedResMap = new Map([...resMap].sort((a, b) => a[1] - b[1]));
-      const genresTop3 = Array.from(sortedResMap.keys()).splice(0, 3);
-      // console.log(sortedResMap); // 数字が低ければ低いほど適正がある
-      // ジャンルから授業名をランダムに取り出す
-      this.results = abilities.filter(e => genresTop3.includes(e.genreName)).map(e => this.getOneAtRandom(e.class));
-      this.resultGenres = genresTop3;
+      const sortedResMap = new Map([...resMap].sort((a, b) => a[1] - b[1]));
+      // 数字が低ければ低いほど適正がある
+      //console.log(sortedResMap, Array.from(sortedResMap)[0][0]);
+      const topRes = Array.from(sortedResMap)[0][0];
+      this.resultClasses = topRes.classes;
+      this.resultGenreName = topRes.genreName;
     },
     retry: function () {
-      this.results = [];
-      this.resultGenres = [];
+      this.resultClasses = [];
+      this.resultGenreName = null;
       this.answer0 = null;
       this.answer1 = null;
       this.answer2 = null;
@@ -314,12 +166,13 @@ export default {
     },
     share: async function () {
       // httpsでしか使えないっぽい
+      // TODO: ここいい感じに
       await navigator.share({
         title: 'IN4U',
         text: `おすすめの授業は\n
-        ・${this.results[0].className}\n
-        ・${this.results[1].className}\n
-        ・${this.results[2].className}\n
+        ・\n
+        ・\n
+        ・\n
         でした！`,
         url: 'https://example.com/',
       });
@@ -328,9 +181,9 @@ export default {
   data() {
     return {
       questions: questions,
-      results: [],
-      resultGenres: [],
-      currPageNumber: 1,
+      resultClasses: [],
+      resultGenreName: null,
+      currPageNumber: 2,
       answer0: null,
       answer1: null,
       answer2: null,
@@ -338,6 +191,10 @@ export default {
       answer4: null,
       isShowDialog: false
     }
+  },
+  mounted: function () {
+    this.resultClasses = abilities[0].classes;
+    this.resultGenreName = abilities[0].genreName;
   }
 }
 </script>
@@ -354,11 +211,14 @@ $color-about-shindan-selected: rgba(137, 116, 195, 0.7);
   position: absolute;
   top: 0;
   left: 0;
-  display: flex;
-  justify-content: center;
   background-color: $color-bg;
   color: $white;
   width: 100vw;
+
+  .shindan-inner {
+    display: flex;
+    justify-content: center;
+  }
 
   ul,
   li {
@@ -450,6 +310,22 @@ $color-about-shindan-selected: rgba(137, 116, 195, 0.7);
         background: rgba(255, 255, 255, 0.3);
       }
     }
+  }
+
+  .result-section-classes-bg {
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 130vw;
+    height: 160vh;
+    border-radius: 50%;
+    background-color: #093c69;
+    /*rgba(104, 255, 237, 0.15);*/
+  }
+
+  .result-section-classes-bg-short {
+    top: -80vh;
   }
 
   .shindan-main {
@@ -730,30 +606,32 @@ $color-about-shindan-selected: rgba(137, 116, 195, 0.7);
         font-size: $font-m;
       }
 
+      .result-section-title {
+        margin-top: 126px;
+      }
+
       .result-section-classes {
+        /*
         position: relative;
         display: flex;
         flex-direction: row;
         justify-content: center;
         gap: 16px;
+        margin-left: -16px;
+        */
 
-        .result-section-classes-bg {
-          position: absolute;
-          z-index: 1;
-          top: -100vh;
-          width: 130vw;
-          height: 160vh;
-          border-radius: 50%;
-          background-color: #093c69;
-          /*rgba(104, 255, 237, 0.15);*/
-        }
-
+        /* 共通設定 */
         .result-section-classes-contents {
+          position: absolute;
+          top: 0;
+          left: 0;
+          /*
           display: flex;
           justify-content: center;
           align-items: center;
           position: relative;
           z-index: 2;
+                    */
 
           img {
             width: 360px;
@@ -765,23 +643,61 @@ $color-about-shindan-selected: rgba(137, 116, 195, 0.7);
             font-size: $font-sm;
           }
         }
+
+        /* 4つのとき */
+
+        .result-section-classes-item-4-0 {}
+
+        .result-section-classes-item-4-1 {}
+
+        .result-section-classes-item-4-2 {}
+
+        .result-section-classes-item-4-3 {}
+
+        /* 5つのとき */
+
+        .result-section-classes-item-5-0 {
+          top: 0;
+          left: 0;
+        }
+
+        .result-section-classes-item-5-1 {
+          top: 0;
+          left: (360px + 16px);
+        }
+
+        .result-section-classes-item-5-2 {
+          left: ((360px + 16px) * 2);
+        }
+
+        .result-section-classes-item-5-3 {
+          top: (360px - 30px);
+          left: ((360px + 16px) / 2);
+        }
+
+        .result-section-classes-item-5-4 {}
+
       }
 
       .result-section-area2 {
-        margin-top: 20vh;
+        margin-top: 600px;
 
         .result-section-area2-message {
-          margin-top: 150px;
+          margin-bottom: 75px;
 
           p {
             font-size: $font-m;
             margin: 0;
             padding: 0;
           }
+
+          span {
+            padding-bottom: 2px;
+            border-bottom: 3px solid $white;
+          }
         }
 
         .result-section-area2-retryandshare {
-          margin-top: 150px;
 
           display: flex;
           justify-content: center;

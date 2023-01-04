@@ -122,12 +122,10 @@ export default {
     //const body = this.$refs.body;
 
     window.addEventListener('mousemove', function (e) {
-      if (e.target.tagName == "textPath" || e.target.tagName == "BUTTON") {
+      if (["textPath", "BUTTON"].includes(e.target.tagName) || ["header-menu-wrapper", "logo_position", "menu_pc", "header-menu", "header-menu-wrapper", "header-menu-items", "header-menu-item"].includes(e.target.className)) {
         stalker.style.display = "none";
-        //body.style.cursor = "pointer";
       } else {
         stalker.style.display = "block";
-        // body.style.cursor = "none";
       }
       stalker.style.transform = 'translate(' + e.clientX + 'px, ' + e.clientY + 'px)';
     });
@@ -184,7 +182,6 @@ export default {
     max-width: $large-width;
     margin: 0 auto;
   }
-
 
   .planet-img {
     img {

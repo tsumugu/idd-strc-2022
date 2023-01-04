@@ -1,6 +1,8 @@
 <template>
   <div class="top-planet">
-    <img :src="imgPath">
+    <div class="img-wrapper">
+      <img :src="imgPath">
+    </div>
     <div class="title-wrapper">
       <p class="title font-bunkyu-midashi">{{ title }}</p>
     </div>
@@ -17,9 +19,11 @@ export default {
 <style lang="scss" scoped>
 @import '@/assets/scss/main.scss';
 
-img {
-  width: 100%;
-  filter: blur(10px);
+.img-wrapper {
+  img {
+    width: 100%;
+    filter: blur(10px);
+  }
 }
 
 .title-wrapper {
@@ -37,11 +41,19 @@ img {
   bottom: 0;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 100%;
   text-align: center;
 
   font-size: $font-m;
-  line-height: $font-m;
+  /*line-height: $font-m;*/
   color: $white;
+
+
+  backdrop-filter: blur(40px);
+  background-color: rgba(57, 76, 89, 0.32);
+
+  padding: 10px 30px 10px 30px;
+  border-radius: 40px;
+
+  display: inline-block;
 }
 </style>

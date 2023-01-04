@@ -1,69 +1,139 @@
 <template>
   <main class="admission">
-    <TopPlanetComponent :imgPath='require("@/assets/imgs/admission/top4.png")' title="" />
-    <div class="v244_13">
-      <div class="v244_14"></div>
-      <div class="v286_104"></div>
-      <div class="v517_1920"></div><span class="v244_15">入試方法 </span>
-      <div class="v244_292"></div>
-      <div class="v244_293"></div>
-      <div class="v244_294"></div>
-      <div class="v244_295"></div><span class="v244_296">一般入試</span><span
-        class="v244_300">美大といえばこの入試方法<br>実技と学科で入学できる</span><span
-        class="v244_301">一般入試の学科試験が<br>共通テストに<br>置き換わったイメージ</span><span class="v244_156">入試方法は４種類！</span><span
-        class="v244_302">共通テストのみで<br>合否が出る<br>一般大学との<br>併願にもおすすめ</span><span
-        class="v244_303">ポートフォリオなどで<br>作品を見て判断してもらえる</span><span class="v244_297">共通テストⅠ方式</span><span
-        class="v244_298">共通テストⅡ方式</span><span class="v244_299">推薦方式</span>
-      <div class="v455_1731"></div>
-      <div class="v508_1682"></div>
-      <div class="v508_1684"></div>
-      <div class="v508_1685"></div>
-      <div class="v508_1686"></div><span class="v455_1732">日程</span><span class="v455_1733">人数</span><span
-        class="v455_1734">科目</span><span class="v455_1735">編入学・転科</span>
-      <div class="v455_1736">
-        <div class="v455_1737"></div>
-        <div class="v455_1738"></div>
-        <div class="v455_1739"></div>
-        <div class="v455_1740"></div><span class="v455_1741">一般</span><span class="v455_1742">共通テストⅠ</span><span
-          class="v455_1743">共通テストⅡ</span><span class="v455_1744">総合型</span>
-        <div class="v455_1745"></div>
-        <div class="v455_1746"></div>
-        <div class="v455_1747"></div>
-        <div class="v455_1748"></div><span class="v455_1749">2/6(月)</span><span class="v455_1750">1月くらい</span><span
-          class="v455_1751">11/20</span><span class="v508_1679"></span><span class="v455_1752">2/9(木)</span>
-        <div class="v455_1753"></div>
-        <div class="v455_1754"></div>
-        <div class="v455_1755"></div>
-        <div class="v455_1756"></div>
-        <div class="v455_1757"></div>
-        <div class="v455_1758"></div><span class="v455_1759">国語・英語10:00-12:30</span><span
-          class="v455_1760">共通テスト<br>(5科目)</span><span class="v455_1761">ポートフォリオ 作品 <br>面接10:00-</span><span
-          class="v455_1762">共通テスト<br>(2科目)</span><span class="v455_1763">視覚表現10:00-16:00</span><span
-          class="v455_1764">鉛筆デッサン14:00-17:00</span><span class="v508_1678"></span><span class="v508_1680"></span>
+    <HeaderComponent />
+    <TopPlanetComponent :imgPath='require("@/assets/imgs/admission/top4.png")' title="入試方法" />
+    <div class="admission-inner">
+      <div class="types">
+        <div>
+          <div class="type-circle circle-1">
+            <p class="type-circle-title">一般入試</p>
+            <p>美大といえばこの入試方法<br><span>実技</span>と<span>学科</span>で入学できる</p>
+          </div>
+          <div class="type-circle circle-2">
+            <p class="type-circle-title">共通テストⅠ方式</p>
+            <p>一般入試の学科試験が<br><span>共通テスト</span>に<br>置き換わったイメージ</p>
+          </div>
+          <div class="type-circle circle-3">
+            <p class="type-circle-title">共通テストⅡ方式</p>
+            <p><span>共通テストのみ</span>で合否が出る<br>一般大学との<span>併願</span>にもおすすめ</p>
+          </div>
+          <div class="type-circle circle-4">
+            <p class="type-circle-title">推薦方式</p>
+            <p><span>ポートフォリオ</span>などで作品を<br>見て判断してもらえる</p>
+          </div>
+        </div>
+        <div>
+          <div class="tategaki">入試方法は<span>４</span>種類！</div>
+        </div>
       </div>
-      <div class="v455_1765"></div><span class="v455_1766">推薦14人</span><span class="v455_1767">共テⅡ10人</span><span
-        class="v455_1768">共テⅠ16人</span><span class="v455_1769">一般21人</span>
-      <div class="v487_1319">
-        <div class="v487_1320"></div>
-        <div class="name"></div>
-        <div class="name"></div>
+      <div class="schedule">
+        <div class="section-title">日程</div>
+        <table class="font-bunkyu-midashi">
+          <tbody>
+            <tr>
+              <td class="transparent_cell"></td>
+              <td class="title_row">一般</td>
+              <td class="title_row">共通テストⅠ</td>
+              <td class="title_row">共通テストⅡ</td>
+              <td class="title_row">総合型</td>
+            </tr>
+            <tr>
+              <td class="title_column">11/20</td>
+              <td class="empty_cell"></td>
+              <td class="empty_cell"></td>
+              <td class="empty_cell"></td>
+              <td class="cell">ポートフォリオ・作品 + 面接<br>10:00-</td>
+            </tr>
+            <tr>
+              <td class="title_column">1月頃</td>
+              <td class="empty_cell"></td>
+              <td class="cell">共通テスト<br>(2科目)</td>
+              <td class="cell">共通テスト<br>(5科目)</td>
+              <td class="empty_cell"></td>
+            </tr>
+            <tr>
+              <td class="title_column" rowspan="2">2/6 (月)</td>
+              <td class="cell">国語・英語<br>10:00-12:30</td>
+              <td class="empty_cell"></td>
+              <td class="empty_cell"></td>
+              <td class="empty_cell"></td>
+            </tr>
+            <tr>
+              <td class="cell" colspan="2">鉛筆デッサン<br>14:00-17:00</td>
+              <td class="empty_cell"></td>
+              <td class="empty_cell"></td>
+            </tr>
+            <tr>
+              <td class="title_column">2/9 (木)</td>
+              <td class="cell">視覚表現<br>10:00-16:00</td>
+              <td class="empty_cell"></td>
+              <td class="empty_cell"></td>
+              <td class="empty_cell"></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <div class="name"></div>
-      <div class="name"></div>
-      <div class="name"></div>
-      <div class="name"></div>
-      <div class="name"></div>
-      <div class="name"></div>
-      <div class="name"></div>
+      <div class="ninzu">
+        <div class="section-title">人数</div>
+        <div><img src="@/assets/imgs/admission/graph.png"></div>
+      </div>
+      <div class="kamoku">
+        <div class="section-title">科目</div>
+        <div class="font-bunkyu-midashi kamoku-item">
+          <p class="kamoku-title">一般選抜</p>
+          <p class="kamoku-body">国語｜国語総合（古文、漢文を除く）、国語表現、なお小論文を課す。<br>英語｜コミュニケーション英語 I・II専門試験｜鉛筆デッサン、視覚表現</p>
+          <p class="kamoku-title">一般選抜［共通テスト併用方式］</p>
+          <p class="kamoku-body">［共通テスト］下記より2教科2科目選択国語｜国語（近代以降の文章のみを
+            評価）地理・歴史｜世界史A、世界史B、日本史A、日本史B、地理A、
+            地理B公民｜現代社会、倫理、政治・経済、「倫理、政治・経済」数学｜数学Ⅰ、
+            数学Ⅰ・数学A、数学Ⅱ、数学Ⅱ・数学B、簿記・会計、情報関係基礎理科｜物理基礎、
+            化学基礎、生物基礎、地学基礎から選択した2つ（本学一般選抜
+            ［共通テスト併用方式］ではこれを理科の「1科目」として扱います）、
+            物理、化学、生物、地学外国語｜英語、ドイツ語、フランス語、中国語、
+            韓国語※国語、地理歴史、公民、数学、理科、外国語において3科目以上受験した
+            場合は得点の高い2教科2科目を評価します。注意：同一教科内で2科目以上受験
+            しても2教科2科目にはなりません。
+          </p>
+        </div>
+      </div>
+      <div class="hennyu">
+        <div class="section-title">編入学・転科</div>
+        <div class="font-bunkyu-midashi">
+          <p class="hennyu-title">募集人数 若干名</p>
+          <p class="hennyu-title">出願資格</p>
+          <p class="hennyu-body">
+            次のいずれかに該当する者または2023年3月31日までにこれに該当する見込の者。<br>
+            1. 日本国内の大学を卒業した者。<br>
+            2. 日本国内の大学に2年次以上在学（休学期間を除く）し、62単位以上を修得した者。<br>
+            3. 日本国内の短期大学を卒業した者。<br>
+            4. 日本国内の高等専門学校を卒業した者。<br>
+            5. 日本国内の専修学校の専門課程（修業年限が2年以上で、かつ課程の修了に必要な総授業時間数が1,700時間以上であること）を修了した者<br>
+            （ただし学校教育法第90条に規定する大学入学資格を有する者に限る）。<br>
+            6. 日本国内の高等学校専攻科の課程（修業年限が2年以上でその他の文部科学大臣の定める基準を満たすものに限る）を修了した者<br>
+            （ただし学校教育法第90条に規定する大学入学資格を有する者に限る）。<br>
+            7. 外国の4年制大学を卒業し、学士号（Bachelor's degree等）を取得した者。<br>
+            8. 外国の4年制大学（卒業時に学士号が取得可）に2年以上在学（休学期間を除く）し、卒業に必要な単位数の半分以上を修得した者。<br>
+            9. 外国の短期大学を卒業し、短期大学士（Associate degree等）を取得した者。
+          </p>
+        </div>
+      </div>
     </div>
+    <BottomSpacer />
+    <FooterComponent />
   </main>
 </template>
 
 <script>
+import HeaderComponent from '@/components/HeaderComponent.vue';
+import FooterComponent from '@/components/FooterComponent.vue';
 import TopPlanetComponent from '@/components/TopPlanetComponent.vue';
+import BottomSpacer from '@/components/BottomSpacer.vue';
 export default {
   name: 'AdmissionView',
   components: {
+    HeaderComponent,
+    FooterComponent,
+    BottomSpacer,
     TopPlanetComponent
   }
 }
@@ -72,1011 +142,203 @@ export default {
 <style lang="scss" scoped>
 @import '@/assets/scss/main.scss';
 
-* {
-  box-sizing: border-box;
-}
-
-body {
-  font-size: $font-s;
-}
-
-.wakusei {
-  position: absolute;
-  width: 1305px;
-  height: 1305px;
-  left: 67px;
-  top: -846px;
-
-  background: url(../assets/imgs/admission/bg1.png);
-  mix-blend-mode: normal;
-  filter: blur(17.5px);
-  border-radius: 50%;
-}
-
-.v244_13 {
-  width: 100%;
-  height: 4884px;
-  background: rgba(12, 24, 78, 1);
-  opacity: 1;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  overflow: hidden;
-}
-
-.v244_14 {
-  width: 100%;
-  height: 100%;
-  background: rgba(18, 11, 58, 0.10000000149011612);
-  opacity: 1;
-  position: absolute;
-  top: 15px;
-  left: 195px;
-  overflow: hidden;
-}
-
-.bg1 {
-  position: absolute;
-  width: 1305px;
-  height: 1305px;
-  left: 67px;
-  top: -846px;
-  background: url(../assets/imgs/admission/bg1.png);
-  mix-blend-mode: normal;
-  filter: blur(17.5px);
-}
-
-
-.v517_1920 {
-  width: 220px;
-  height: 86px;
-  background: rgba(124, 136, 187, 0.47999998927116394);
-  opacity: 1;
-  position: absolute;
-  top: 137px;
-  left: 610px;
-  border: 1px solid rgba(255, 255, 255, 1);
-  border-top-left-radius: 53px;
-  border-top-right-radius: 53px;
-  border-bottom-left-radius: 53px;
-  border-bottom-right-radius: 53px;
-  overflow: hidden;
-}
-
-.v244_15 {
-  position: absolute;
-  width: 144px;
-  height: 54px;
-  left: 648px;
-  top: 153px;
-
-  font-family: 'Toppan Bunkyu Midashi Gothic';
-  font-style: normal;
-  font-weight: 900;
-  font-size: $font-m;
-  line-height: $font-x;
-  /* ボックスの高さと同一 */
-
-
-  color: #FFFFFF;
-
-}
-
-.v244_292 {
-  width: 493px;
-  height: 493px;
-  background: rgba(255, 255, 255, 0.20000000298023224);
-  opacity: 1;
-  position: absolute;
-  top: 277px;
-  left: 260px;
-  border-radius: 50%;
-}
-
-.v244_293 {
-  width: 493px;
-  height: 493px;
-  background: rgba(255, 255, 255, 0.20000000298023224);
-  opacity: 1;
-  position: absolute;
-  top: 612px;
-  left: 673px;
-  border-radius: 50%;
-}
-
-.v244_294 {
-  width: 493px;
-  height: 493px;
-  background: rgba(255, 255, 255, 0.20000000298023224);
-  opacity: 1;
-  position: absolute;
-  top: 960px;
-  left: 260px;
-  border-radius: 50%;
-}
-
-.v244_295 {
-  width: 493px;
-  height: 493px;
-  background: rgba(255, 255, 255, 0.20000000298023224);
-  opacity: 1;
-  position: absolute;
-  top: 1280px;
-  left: 673px;
-  border-radius: 50%;
-}
-
-.v244_296 {
-  position: absolute;
-  width: 144px;
-  height: 54px;
-  left: 435px;
-  top: 399px;
-
-  font-family: 'Toppan Bunkyu Midashi Gothic';
-  font-style: normal;
-  font-weight: 900;
-  font-size: $font-m;
-  line-height: $font-x;
-  /* ボックスの高さと同一 */
-
-
-  color: #FFFFFF;
-
-}
-
-.v244_300 {
-  position: absolute;
-  width: 384px;
-  height: 104px;
-  left: 315px;
-  top: 498px;
-
-  font-family: 'Toppan Bunkyu Midashi Gothic';
-  font-style: normal;
-  font-weight: 900;
-  font-size: $font-m;
-  line-height: $font-xm;
-  text-align: center;
-
-  color: #FFFFFF;
-
-}
-
-.v244_301 {
-  position: absolute;
-  width: 320px;
-  height: 150px;
-  left: 760px;
-  top: 823px;
-
-  font-family: 'Toppan Bunkyu Midashi Gothic';
-  font-style: normal;
-  font-weight: 900;
-  font-size: $font-m;
-  line-height: $font-xm;
-  text-align: center;
-
-  color: #FFFFFF;
-
-}
-
-.v244_156 {
-  width: 37px;
-  color: rgba(255, 255, 255, 1);
-  position: absolute;
-  top: 276px;
-  left: 1104px;
-  font-family: Toppan Bunkyu Midashi Gothic;
-  font-weight: Extrabold;
-  font-size: $font-m;
-  opacity: 1;
+.schedule,
+.ninzu,
+.kamoku,
+.hennyu {
   text-align: left;
 }
 
-.v244_302 {
-  position: absolute;
-  width: 456px;
-  height: 108px;
-  left: 279px;
-  top: 1185px;
-
-  font-family: 'Toppan Bunkyu Midashi Gothic';
-  font-style: normal;
-  font-weight: 900;
-  font-size: $font-m;
-  line-height: $font-x;
-  text-align: center;
-
-  color: #FFFFFF;
-}
-
-.v244_303 {
-  position: absolute;
-  width: 443px;
-  height: 101px;
-  left: 698px;
-  top: 1493px;
-
-  font-family: 'Toppan Bunkyu Midashi Gothic';
-  font-style: normal;
-  font-weight: 900;
-  font-size: $font-m;
-  line-height: $font-x;
-  text-align: center;
-
-  color: #FFFFFF;
-
-}
-
-.v244_297 {
-  position: absolute;
-  width: 288px;
-  height: 54px;
-  left: 776px;
-  top: 729px;
-
-  font-family: 'Toppan Bunkyu Midashi Gothic';
-  font-style: normal;
-  font-weight: 900;
-  font-size: $font-m;
-  line-height: $font-x;
-  /* ボックスの高さと同一 */
-
-
-  color: #FFFFFF;
-
-}
-
-.v244_298 {
-  position: absolute;
-  width: 288px;
-  height: 54px;
-  left: 363px;
-  top: 1093px;
-
-  font-family: 'Toppan Bunkyu Midashi Gothic';
-  font-style: normal;
-  font-weight: 900;
-  font-size: $font-m;
-  line-height: $font-x;
-  /* ボックスの高さと同一 */
-
-
-  color: #FFFFFF;
-}
-
-.v244_299 {
-  position: absolute;
-  width: 144px;
-  height: 54px;
-  left: 845px;
-  top: 1399px;
-
-  font-family: 'Toppan Bunkyu Midashi Gothic';
-  font-style: normal;
-  font-weight: 900;
-  font-size: $font-m;
-  line-height: $font-x;
-  /* ボックスの高さと同一 */
-
-
-  color: #FFFFFF;
-
-}
-
-.v455_1731 {
-  width: 685px;
-  height: 537px;
-  background: rgba(255, 255, 255, 1);
-  opacity: 1;
-  position: absolute;
-  top: 3227px;
-  left: 503px;
-  border-top-left-radius: 52px;
-  border-top-right-radius: 52px;
-  border-bottom-left-radius: 52px;
-  border-bottom-right-radius: 52px;
-  overflow: hidden;
-}
-
-.v508_1682 {
-  width: 159px;
-  height: 86px;
-  background: rgba(53, 63, 106, 1);
-  opacity: 1;
-  position: absolute;
-  top: 1879px;
-  left: 239px;
-  border: 1px solid rgba(255, 255, 255, 1);
-  border-top-left-radius: 53px;
-  border-top-right-radius: 53px;
-  border-bottom-left-radius: 53px;
-  border-bottom-right-radius: 53px;
-  overflow: hidden;
-}
-
-.v508_1684 {
-  width: 159px;
-  height: 86px;
-  background: rgba(53, 63, 106, 1);
-  opacity: 1;
-  position: absolute;
-  top: 2459px;
-  left: 257px;
-  border: 1px solid rgba(255, 255, 255, 1);
-  border-top-left-radius: 53px;
-  border-top-right-radius: 53px;
-  border-bottom-left-radius: 53px;
-  border-bottom-right-radius: 53px;
-  overflow: hidden;
-}
-
-.v508_1685 {
-  width: 159px;
-  height: 86px;
-  background: rgba(53, 63, 106, 1);
-  opacity: 1;
-  position: absolute;
-  top: 3169px;
-  left: 254px;
-  border: 1px solid rgba(255, 255, 255, 1);
-  border-top-left-radius: 53px;
-  border-top-right-radius: 53px;
-  border-bottom-left-radius: 53px;
-  border-bottom-right-radius: 53px;
-  overflow: hidden;
-}
-
-.v508_1686 {
-  width: 260px;
-  height: 86px;
-  background: rgba(53, 63, 106, 1);
-  opacity: 1;
-  position: absolute;
-  top: 3807px;
-  left: 273px;
-  border: 1px solid rgba(255, 255, 255, 1);
-  border-top-left-radius: 53px;
-  border-top-right-radius: 53px;
-  border-bottom-left-radius: 53px;
-  border-bottom-right-radius: 53px;
-  overflow: hidden;
-}
-
-.v455_1732 {
-  position: absolute;
-  width: 132.63px;
-  height: 40.43px;
-  left: 281px;
-  top: 1893px;
-
-  font-family: 'Toppan Bunkyu Midashi Gothic';
-  font-style: normal;
-  font-weight: 900;
-  font-size: $font-m;
-  line-height: $font-x;
-
-  color: #FFFFFF;
-
-}
-
-.v455_1733 {
-  position: absolute;
-  width: 132.63px;
-  height: 40.43px;
-  left: 299px;
-  top: 2475px;
-
-  font-family: 'Toppan Bunkyu Midashi Gothic';
-  font-style: normal;
-  font-weight: 900;
-  font-size: $font-m;
-  line-height: $font-x;
-
-  color: #FFFFFF;
-
-}
-
-.v455_1734 {
-  position: absolute;
-  width: 132.63px;
-  height: 40.43px;
-  left: 299px;
-  top: 3186px;
-
-  font-family: 'Toppan Bunkyu Midashi Gothic';
-  font-style: normal;
-  font-weight: 900;
-  font-size: $font-m;
-  line-height: $font-x;
-
-  color: #FFFFFF;
-
-}
-
-.v455_1735 {
-  position: absolute;
-  width: 355px;
-  height: 40px;
-  left: 299px;
-  top: 3820px;
-
-  font-family: 'Toppan Bunkyu Midashi Gothic';
-  font-style: normal;
-  font-weight: 900;
-  font-size: $font-m;
-  line-height: $font-x;
-
-  color: #FFFFFF;
-
-}
-
-.v455_1736 {
-  width: 100%;
-  height: 391px;
-  /* background: url(../assets/imgs/admission/v455_1736.png); */
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
-  opacity: 1;
-  position: absolute;
-  top: 2000px;
-  left: 117px;
-  overflow: hidden;
-}
-
-.v455_1737 {
-  width: 241px;
-  height: 391px;
-  background: rgba(168, 138, 218, 0.6700000166893005);
-  opacity: 1;
-  position: absolute;
-  top: 0px;
-  left: 238px;
-  overflow: hidden;
-}
-
-.v455_1738 {
-  width: 240px;
-  height: 391px;
-  background: rgba(127, 212, 216, 0.6800000071525574);
-  opacity: 1;
-  position: absolute;
-  top: 0px;
-  left: 480px;
-  overflow: hidden;
-}
-
-.v455_1739 {
-  width: 241px;
-  height: 391px;
-  background: rgba(87, 143, 195, 0.7599999904632568);
-  opacity: 1;
-  position: absolute;
-  top: 0px;
-  left: 719px;
-  overflow: hidden;
-}
-
-.v455_1740 {
-  width: 240px;
-  height: 391px;
-  background: rgba(178, 103, 179, 0.5699999928474426);
-  opacity: 1;
-  position: absolute;
-  top: 0px;
-  left: 959px;
-  overflow: hidden;
-}
-
-.v455_1741 {
-  width: 120px;
-  color: rgba(255, 255, 255, 1);
-  position: absolute;
-  top: 16px;
-  left: 292px;
-  font-family: Toppan Bunkyu Midashi Gothic;
-  font-weight: Extrabold;
-  font-size: $font-s;
-  opacity: 1;
-  text-align: center;
-}
-
-.v455_1742 {
-  width: 155px;
-  color: rgba(255, 255, 255, 1);
-  position: absolute;
-  top: 5px;
-  left: 517px;
-  font-family: Toppan Bunkyu Midashi Gothic;
-  font-weight: Extrabold;
-  font-size: $font-s;
-  opacity: 1;
-  text-align: center;
-}
-
-.v455_1743 {
-  width: 121px;
-  color: rgba(255, 255, 255, 1);
-  position: absolute;
-  top: 22px;
-  left: 778px;
-  font-family: Toppan Bunkyu Midashi Gothic;
-  font-weight: Extrabold;
-  font-size: $font-s;
-  opacity: 1;
-  text-align: center;
-}
-
-.v455_1744 {
-  width: 121px;
-  color: rgba(255, 255, 255, 1);
-  position: absolute;
-  top: 22px;
-  left: 1018px;
-  font-family: Toppan Bunkyu Midashi Gothic;
-  font-weight: Extrabold;
-  font-size: $font-s;
-  opacity: 1;
-  text-align: center;
-}
-
-.v455_1745 {
-  width: 240px;
-  height: 133px;
-  background: rgba(255, 255, 255, 1);
-  opacity: 1;
-  position: absolute;
-  top: 193px;
-  left: 0px;
-  overflow: hidden;
-}
-
-.v455_1746 {
-  width: 240px;
-  height: 66px;
-  background: rgba(255, 255, 255, 1);
-  opacity: 1;
-  position: absolute;
-  top: 130px;
-  left: 0px;
-  overflow: hidden;
-}
-
-.v455_1747 {
-  width: 240px;
-  height: 65px;
-  background: rgba(255, 255, 255, 1);
-  opacity: 1;
-  position: absolute;
-  top: 67px;
-  left: 0px;
-  overflow: hidden;
-}
-
-.v455_1748 {
-  width: 240px;
-  height: 66px;
-  background: rgba(255, 255, 255, 1);
-  opacity: 1;
-  position: absolute;
-  top: 324px;
-  left: 0px;
-  overflow: hidden;
-}
-
-.v455_1749 {
-  width: 148px;
-  color: rgba(0, 0, 0, 1);
-  position: absolute;
-  top: 250px;
-  left: 45px;
-  font-family: Toppan Bunkyu Midashi Gothic;
-  font-weight: Extrabold;
-  font-size: $font-s;
-  opacity: 1;
-  text-align: center;
-}
-
-.v455_1750 {
-  width: 126px;
-  color: rgba(0, 0, 0, 1);
-  position: absolute;
-  top: 153px;
-  left: 56px;
-  font-family: Toppan Bunkyu Midashi Gothic;
-  font-weight: Extrabold;
-  font-size: $font-s;
-  opacity: 1;
-  text-align: center;
-}
-
-.v455_1751 {
-  width: 125px;
-  color: rgba(0, 0, 0, 1);
-  position: absolute;
-  top: 89px;
-  left: 55px;
-  font-family: Toppan Bunkyu Midashi Gothic;
-  font-weight: Extrabold;
-  font-size: $font-s;
-  opacity: 1;
-  text-align: center;
-}
-
-.v508_1679 {
-  width: 10px;
-  color: rgba(0, 0, 0, 1);
-  position: absolute;
-  top: 80px;
-  left: 113px;
-  font-family: Adelle Sans Devanagari;
-  font-weight: Bold;
-  font-size: $font-s;
-  opacity: 1;
-  text-align: center;
-}
-
-.v455_1752 {
-  width: 143px;
-  color: rgba(0, 0, 0, 1);
-  position: absolute;
-  top: 348px;
-  left: 50px;
-  font-family: Toppan Bunkyu Midashi Gothic;
-  font-weight: Extrabold;
-  font-size: $font-s;
-  opacity: 1;
-  text-align: center;
-}
-
-.v455_1753 {
-  width: 238px;
-  height: 62px;
-  background: rgba(232, 232, 232, 1);
-  opacity: 1;
-  position: absolute;
-  top: 197px;
-  left: 240px;
-  overflow: hidden;
-}
-
-.v455_1754 {
-  width: 241px;
-  height: 65px;
-  background: rgba(232, 232, 232, 1);
-  opacity: 1;
-  position: absolute;
-  top: 133px;
-  left: 719px;
-  overflow: hidden;
-}
-
-.v455_1755 {
-  width: 240px;
-  height: 65px;
-  background: rgba(232, 232, 232, 1);
-  opacity: 1;
-  position: absolute;
-  top: 67px;
-  left: 959px;
-  overflow: hidden;
-}
-
-.v455_1756 {
-  width: 240px;
-  height: 65px;
-  background: rgba(232, 232, 232, 1);
-  opacity: 1;
-  position: absolute;
-  top: 133px;
-  left: 479px;
-  overflow: hidden;
-}
-
-.v455_1757 {
-  width: 238px;
-  height: 66px;
-  background: rgba(232, 232, 232, 1);
-  opacity: 1;
-  position: absolute;
-  top: 324px;
-  left: 240px;
-  overflow: hidden;
-}
-
-.v455_1758 {
-  width: 479px;
-  height: 64px;
-  background: rgba(232, 232, 232, 1);
-  opacity: 1;
-  position: absolute;
-  top: 260px;
-  left: 240px;
-  overflow: hidden;
-}
-
-.v455_1759 {
-  width: 130px;
-  color: rgba(0, 0, 0, 1);
-  position: absolute;
-  top: 202px;
-  left: 294px;
-  font-family: Toppan Bunkyu Midashi Gothic;
-  font-weight: Extrabold;
-  font-size: $font-s;
-  opacity: 1;
-  text-align: center;
-}
-
-.v455_1760 {
-  width: 109px;
-  color: rgba(0, 0, 0, 1);
-  position: absolute;
-  top: 144px;
-  left: 784px;
-  font-family: Toppan Bunkyu Midashi Gothic;
-  font-weight: Extrabold;
-  font-size: $font-s;
-  opacity: 1;
-  text-align: center;
-}
-
-.v455_1761 {
-  width: 257px;
-  color: rgba(0, 0, 0, 1);
-  position: absolute;
-  top: 76px;
-  left: 949px;
-  font-family: Toppan Bunkyu Midashi Gothic;
-  font-weight: Extrabold;
-  font-size: $font-s;
-  opacity: 1;
-  text-align: center;
-}
-
-.v455_1762 {
-  width: 111px;
-  color: rgba(0, 0, 0, 1);
-  position: absolute;
-  top: 144px;
-  left: 543px;
-  font-family: Toppan Bunkyu Midashi Gothic;
-  font-weight: Extrabold;
-  font-size: $font-s;
-  opacity: 1;
-  text-align: center;
-}
-
-.v455_1763 {
-  width: 124px;
-  color: rgba(0, 0, 0, 1);
-  position: absolute;
-  top: 336px;
-  left: 296px;
-  font-family: Toppan Bunkyu Midashi Gothic;
-  font-weight: Extrabold;
-  font-size: $font-s;
-  opacity: 1;
-  text-align: center;
-}
-
-.v455_1764 {
-  width: 192px;
-  color: rgba(0, 0, 0, 1);
-  position: absolute;
-  top: 272px;
-  left: 384px;
-  font-family: Toppan Bunkyu Midashi Gothic;
-  font-weight: Extrabold;
-  font-size: $font-s;
-  opacity: 1;
-  text-align: center;
-}
-
-.v508_1676 {
-  width: 59px;
-  color: rgba(0, 0, 0, 1);
-  position: absolute;
-  top: 240px;
-  left: 99px;
-  font-family: Adelle Sans Devanagari;
-  font-weight: Bold;
-  font-size: $font-s;
-  opacity: 1;
-  text-align: center;
-}
-
-.v508_1677 {
-  width: 59px;
-  color: rgba(0, 0, 0, 1);
-  position: absolute;
-  top: 339px;
-  left: 100px;
-  font-family: Adelle Sans Devanagari;
-  font-weight: Bold;
-  font-size: $font-s;
-  opacity: 1;
-  text-align: center;
-}
-
-.v508_1681 {
-  width: 59px;
-  color: rgba(0, 0, 0, 1);
-  position: absolute;
-  top: 73px;
-  left: 1088px;
-  font-family: Adelle Sans Devanagari;
-  font-weight: Bold;
-  font-size: $font-s;
-  opacity: 1;
-  text-align: center;
-}
-
-.v508_1678 {
-  width: 72px;
-  color: rgba(0, 0, 0, 1);
-  position: absolute;
-  top: 157px;
-  left: 563px;
-  font-family: Adelle Sans Devanagari;
-  font-weight: Bold;
-  font-size: $font-s;
-  opacity: 1;
-  text-align: center;
-}
-
-.v508_1680 {
-  width: 72px;
-  color: rgba(0, 0, 0, 1);
-  position: absolute;
-  top: 157px;
-  left: 803px;
-  font-family: Adelle Sans Devanagari;
-  font-weight: Bold;
-  font-size: $font-s;
-  opacity: 1;
-  text-align: center;
-}
-
-.v455_1765 {
-  width: 563px;
-  height: 540px;
-  /*background: url(../assets/imgs/admission/v455_1765.png);*/
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
-  opacity: 1;
-  position: absolute;
-  top: 2553px;
-  left: 535px;
-  overflow: hidden;
-}
-
-.v455_1766 {
-  width: 86px;
-  color: rgba(255, 255, 255, 1);
-  position: absolute;
-  top: 2699px;
-  left: 686px;
-  font-family: Inter;
-  font-weight: Regular;
-  font-size: $font-s;
-  opacity: 1;
-  text-align: center;
-}
-
-.v455_1767 {
-  width: 85px;
-  color: rgba(255, 255, 255, 1);
-  position: absolute;
-  top: 2881px;
-  left: 628px;
-  font-family: Inter;
-  font-weight: Regular;
-  font-size: $font-s;
-  opacity: 1;
-  text-align: center;
-}
-
-.v455_1768 {
-  width: 86px;
-  color: rgba(255, 255, 255, 1);
-  position: absolute;
-  top: 2971px;
-  left: 803px;
-  font-family: Inter;
-  font-weight: Regular;
-  font-size: $font-s;
-  opacity: 1;
-  text-align: center;
-}
-
-.v455_1769 {
-  width: 85px;
-  color: rgba(255, 255, 255, 1);
-  position: absolute;
-  top: 2740px;
-  left: 894px;
-  font-family: Inter;
-  font-weight: Regular;
-  font-size: $font-s;
-  opacity: 1;
-  text-align: center;
-}
-
-.v487_1319 {
-  width: 100%;
-  height: 100px;
-  /* background: url(../assets/imgs/admission/v487_1319.png); */
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
-  opacity: 1;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  overflow: hidden;
-}
-
-.v487_1320 {
-  width: 100%;
-  height: 100px;
-  background: rgba(0, 0, 0, 0.05000000074505806);
-  opacity: 1;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  overflow: hidden;
-}
-
-.name {
-  color: #fff;
-}
-
-.name {
-  color: #fff;
-}
-
-.name {
-  color: #fff;
-}
-
-.name {
-  color: #fff;
-}
-
-.name {
-  color: #fff;
-}
-
-.name {
-  color: #fff;
-}
-
-.name {
-  color: #fff;
-}
-
-.name {
-  color: #fff;
-}
-
-.v517_1917 {
-  width: 55px;
-  color: rgba(255, 255, 255, 1);
-  position: absolute;
-  top: 496px;
-  left: 1095px;
-  font-family: Toppan Bunkyu Midashi Gothic;
-  font-weight: Extrabold;
-  font-size: $font-xl;
-  opacity: 1;
-  text-align: left;
-}
-
-.name {
-  color: #fff;
+.admission {
+  color: $white;
+  background-color: #0C184E;
+  width: 100vw;
+
+  .admission-inner {
+    display: inline-block;
+    position: relative;
+    margin-top: -200px;
+    z-index: 888;
+
+    .section-title {
+      font-family: toppan-bunkyu-midashi-go-std, sans-serif;
+      font-weight: 900;
+      font-style: normal;
+
+      font-size: $font-m;
+
+      background: $color-job-company-bg;
+      backdrop-filter: blur(2px);
+
+      display: inline-block;
+
+      margin-top: 130px;
+      margin-bottom: $font-x;
+
+      padding: 10px 30px 10px 30px;
+      border-radius: 40px;
+    }
+
+    .types {
+      display: grid;
+      grid-template-columns: 800px 100px;
+
+      .circle-2,
+      .circle-4 {
+        margin-top: -100px;
+        margin-left: 340px;
+      }
+
+      .circle-2,
+      .circle-3,
+      .circle-4 {
+        margin-top: -100px;
+      }
+
+      .tategaki {
+        display: inline-block;
+
+        margin-left: -220px;
+
+        font-family: toppan-bunkyu-midashi-go-std, sans-serif;
+        font-weight: 900;
+        font-style: normal;
+        writing-mode: vertical-rl;
+        font-size: $font-m;
+        padding-bottom: 2px;
+        border-right: solid 3px #ffffff;
+        line-height: 1;
+
+        span {
+          font-size: $font-xl;
+        }
+      }
+
+      .type-circle {
+        font-family: toppan-bunkyu-midashi-go-std, sans-serif;
+        font-weight: 900;
+        font-style: normal;
+
+        font-size: $font-sm;
+        line-height: calc($font-m * 1.2);
+
+        width: 340px;
+        height: 340px;
+
+        background: $color-job-company-bg;
+        backdrop-filter: blur(2px);
+
+        border-radius: 50%;
+
+        padding: 50px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-flow: column;
+
+        .type-circle-title {
+          margin: $font-m;
+        }
+
+        p {
+          margin: 0;
+          padding: 0;
+        }
+
+        span {
+          padding-bottom: 2px;
+          border-bottom: solid 3px #ffffff;
+        }
+      }
+    }
+
+    .schedule {
+
+      table,
+      td,
+      th {
+        border: none;
+        border-collapse: collapse;
+        text-align: center;
+      }
+
+      td,
+      th {
+        padding: 3px;
+        width: 220px;
+        height: 25px;
+      }
+
+      th {
+        background: #f0e6cc;
+      }
+
+      .even {
+        background: #fbf8f0;
+      }
+
+      .odd {
+        background: #fefcf9;
+      }
+
+      .title_column,
+      .title_row {
+        background: #a899bc;
+      }
+
+      .title_column {
+        color: black;
+      }
+
+      .title_row {
+        color: white;
+      }
+
+      .transparent_cell {
+        background: transparent;
+      }
+
+      .cell {
+        background: #cdc9d6;
+      }
+
+      .empty_cell {
+        background: #373544;
+      }
+    }
+
+    .kamoku {
+      .kamoku-item {
+        background: $color-job-company-bg;
+        backdrop-filter: blur(2px);
+        padding: 20px 60px 20px 60px;
+        width: 50%;
+        border-radius: 50px;
+      }
+
+      .kamoku-title {
+        margin-top: 35px;
+        font-size: $font-sm;
+      }
+
+      .kamoku-body {
+        margin-top: 30px;
+        font-size: $font-s;
+      }
+    }
+
+    .hennyu {
+      .hennyu-title {
+        margin: 0;
+        font-size: $font-sm;
+      }
+
+      .hennyu-body {
+        margin-top: 13px;
+        font-size: $font-s;
+      }
+    }
+  }
 }
 </style>
