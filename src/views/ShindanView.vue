@@ -1,6 +1,8 @@
 <template>
   <main class="shindan">
-    <div class="result-section-classes-bg result-section-classes-bg-short" v-show="currPageNumber == 2"></div>
+    <div class="result-section-classes-bg"
+      v-bind:class="{ 'result-section-classes-bg-3': resultClasses.length == 3, 'result-section-classes-bg-4': resultClasses.length == 4, 'result-section-classes-bg-5': resultClasses.length == 5 }"
+      v-show="currPageNumber == 2"></div>
     <div class="shindan-inner">
       <HeaderComponent />
       <div class="shindan-dialog-wrapper" v-show="isShowDialog">
@@ -75,13 +77,15 @@
         </section>
         <section class="result-section" v-show="currPageNumber == 2">
           <h2 class="result-section-title font-bunkyu-midashi">おすすめ授業</h2>
-          <ul class="result-section-classes">
+          <ul class="result-section-classes"
+            v-bind:class="{ 'result-section-classes-pos-3': resultClasses.length == 3, 'result-section-classes-pos-4': resultClasses.length == 4, 'result-section-classes-pos-5': resultClasses.length == 5 }">
             <li v-for="(classinfo, index) in resultClasses" :key=index class="result-section-classes-contents"
               v-bind:class="['result-section-classes-item-' + resultClasses.length + '-' + index]">
-              <router-link to="/class-about/uiux"><img :src=classinfo.img></router-link>
+              <router-link :to="'/class-about/' + classinfo.key"><img :src=classinfo.img></router-link>
             </li>
           </ul>
-          <div class="result-section-area2">
+          <div class="result-section-area2"
+            v-bind:class="{ 'result-section-area2-3': resultClasses.length == 3, 'result-section-area2-4': resultClasses.length == 4, 'result-section-area2-5': resultClasses.length == 5 }">
             <div class="result-section-area2-message">
               <p class="font-bunkyu-midashi"><span>{{ resultGenreName }}</span>に興味があるあなたは</p>
               <p class="font-bunkyu-midashi">この授業を履修するのがオススメ！</p>
@@ -97,6 +101,18 @@
                 </button>
               </div>
             </div>
+            <div class="result-section-area2-more">
+              <div class="result-section-area2-more-title font-bunkyu-midashi">他の授業も見てみる<span>？</span></div>
+              <div class="result-section-area2-more-layout"
+                v-bind:class="{ 'result-section-area2-more-layout-9': otherClasses.length == 9, 'result-section-area2-more-layout-8': otherClasses.length == 8, 'result-section-area2-more-layout-7': otherClasses.length == 7 }">
+                <div v-for="(columnItems, index) in otherClassesDisp" :key=index
+                  class="result-section-area2-more-column" v-bind:class="['result-section-area2-more-column-' + index]">
+                  <div v-for="(classinfo, index2) in columnItems" :key=index2 class="result-section-area2-more-item">
+                    <router-link :to="'/class-about/' + classinfo.key"><img :src=classinfo.img></router-link>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
       </div>
@@ -108,6 +124,7 @@
 <script>
 import { abilities } from "../assets/shindan_info/abilities";
 import { questions } from "../assets/shindan_info/questions";
+import { classes } from "@/assets/shindan_info/classes";
 import HeaderComponent from '@/components/HeaderComponent.vue';
 import FooterComponent from '@/components/FooterComponent.vue';
 export default {
@@ -115,6 +132,23 @@ export default {
   components: {
     HeaderComponent,
     FooterComponent
+  },
+  watch: {
+    otherClasses: function () {
+      const length = this.otherClasses.length;
+      if (length == 9) {
+        // 3-3-3
+        this.otherClassesDisp = [this.otherClasses.slice(0, 3), this.otherClasses.slice(3, 6), this.otherClasses.slice(6, 9)]
+      } else if (length == 8) {
+        // 3-2-3
+        this.otherClassesDisp = [this.otherClasses.slice(0, 3), this.otherClasses.slice(3, 5), this.otherClasses.slice(5, 8)]
+      } else if (length == 7) {
+        // 2-3-2
+        this.otherClassesDisp = [this.otherClasses.slice(0, 2), this.otherClasses.slice(2, 5), this.otherClasses.slice(5, 7)]
+      }
+      console.log(this.otherClasses, this.otherClassesDisp);
+      //this.otherClassesDisp
+    }
   },
   methods: {
     getOneAtRandom: function (array) {
@@ -153,9 +187,16 @@ export default {
       const topRes = Array.from(sortedResMap)[0][0];
       this.resultClasses = topRes.classes;
       this.resultGenreName = topRes.genreName;
+      // その他の授業を取り出す
+      const classesNames = Object.keys(classes);
+      const resultClassesNames = this.resultClasses.map(e => e.key);
+      const resultClassesNamesDiff = classesNames.filter(e => !resultClassesNames.includes(e));
+      this.otherClasses = resultClassesNamesDiff.map(name => classes[name]);
     },
     retry: function () {
       this.resultClasses = [];
+      this.otherClasses = [];
+      this.otherClassesDisp = [];
       this.resultGenreName = null;
       this.answer0 = null;
       this.answer1 = null;
@@ -182,8 +223,10 @@ export default {
     return {
       questions: questions,
       resultClasses: [],
+      otherClasses: [],
+      otherClassesDisp: [],
       resultGenreName: null,
-      currPageNumber: 2,
+      currPageNumber: 0,
       answer0: null,
       answer1: null,
       answer2: null,
@@ -192,10 +235,16 @@ export default {
       isShowDialog: false
     }
   },
-  mounted: function () {
-    this.resultClasses = abilities[0].classes;
-    this.resultGenreName = abilities[0].genreName;
-  }
+  // mounted: function () {
+  //   const index = 3;
+  //   this.resultClasses = abilities[index].classes;
+  //   this.resultGenreName = abilities[index].genreName;
+  //   // その他の授業を取り出す
+  //   const classesNames = Object.keys(classes);
+  //   const resultClassesNames = this.resultClasses.map(e => e.key);
+  //   const resultClassesNamesDiff = classesNames.filter(e => !resultClassesNames.includes(e));
+  //   this.otherClasses = resultClassesNamesDiff.map(name => classes[name]);
+  // }
 }
 </script>
 
@@ -324,8 +373,16 @@ $color-about-shindan-selected: rgba(137, 116, 195, 0.7);
     /*rgba(104, 255, 237, 0.15);*/
   }
 
-  .result-section-classes-bg-short {
+  .result-section-classes-bg-3 {
     top: -80vh;
+  }
+
+  .result-section-classes-bg-4 {
+    top: -80vh;
+  }
+
+  .result-section-classes-bg-5 {
+    top: -50vh;
   }
 
   .shindan-main {
@@ -598,8 +655,6 @@ $color-about-shindan-selected: rgba(137, 116, 195, 0.7);
     }
 
     .result-section {
-      height: 200vh;
-
       h2 {
         position: relative;
         z-index: 2;
@@ -610,28 +665,31 @@ $color-about-shindan-selected: rgba(137, 116, 195, 0.7);
         margin-top: 126px;
       }
 
+      .result-section-classes-pos-3 {
+        position: absolute;
+        top: 200px;
+        left: calc(360px / -2 + 32px);
+      }
+
+      .result-section-classes-pos-4 {
+        position: absolute;
+        top: 300px;
+        left: calc(360px / -2 + 32px);
+      }
+
+      .result-section-classes-pos-5 {
+        position: absolute;
+        top: 200px;
+        left: calc(360px / -2 + 32px);
+      }
+
       .result-section-classes {
-        /*
-        position: relative;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        gap: 16px;
-        margin-left: -16px;
-        */
 
         /* 共通設定 */
         .result-section-classes-contents {
           position: absolute;
           top: 0;
           left: 0;
-          /*
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          position: relative;
-          z-index: 2;
-                    */
 
           img {
             width: 360px;
@@ -644,15 +702,46 @@ $color-about-shindan-selected: rgba(137, 116, 195, 0.7);
           }
         }
 
+        /* 3つのとき */
+        $item-offset-left: calc(360px + 16px);
+        $item-offset-top: calc(360px - 30px);
+
+        .result-section-classes-item-3-0 {
+          top: 0;
+          left: 0;
+        }
+
+        .result-section-classes-item-3-1 {
+          top: 0;
+          left: $item-offset-left;
+        }
+
+        .result-section-classes-item-3-2 {
+          top: 0;
+          left: calc($item-offset-left * 2);
+        }
+
         /* 4つのとき */
 
-        .result-section-classes-item-4-0 {}
+        .result-section-classes-item-4-0 {
+          top: calc(360px / -2);
+          left: 0;
+        }
 
-        .result-section-classes-item-4-1 {}
+        .result-section-classes-item-4-1 {
+          top: 0;
+          left: 360px - 16px;
+        }
 
-        .result-section-classes-item-4-2 {}
+        .result-section-classes-item-4-2 {
+          top: 0;
+          left: calc($item-offset-left * 2 - 16px);
+        }
 
-        .result-section-classes-item-4-3 {}
+        .result-section-classes-item-4-3 {
+          top: calc(360px / -2);
+          left: calc($item-offset-left * 3 - 48px);
+        }
 
         /* 5つのとき */
 
@@ -663,25 +752,39 @@ $color-about-shindan-selected: rgba(137, 116, 195, 0.7);
 
         .result-section-classes-item-5-1 {
           top: 0;
-          left: (360px + 16px);
+          left: $item-offset-left;
         }
 
         .result-section-classes-item-5-2 {
-          left: ((360px + 16px) * 2);
+          top: 0;
+          left: calc($item-offset-left * 2);
         }
 
         .result-section-classes-item-5-3 {
-          top: (360px - 30px);
-          left: ((360px + 16px) / 2);
+          top: $item-offset-top;
+          left: calc($item-offset-left / 2);
         }
 
-        .result-section-classes-item-5-4 {}
+        .result-section-classes-item-5-4 {
+          top: calc(360px - 30px);
+          left: calc(($item-offset-left * 2) - ($item-offset-left / 2));
+        }
 
       }
 
-      .result-section-area2 {
-        margin-top: 600px;
+      .result-section-area2-3 {
+        margin-top: 625px;
+      }
 
+      .result-section-area2-4 {
+        margin-top: 625px;
+      }
+
+      .result-section-area2-5 {
+        margin-top: 925px;
+      }
+
+      .result-section-area2 {
         .result-section-area2-message {
           margin-bottom: 75px;
 
@@ -736,6 +839,73 @@ $color-about-shindan-selected: rgba(137, 116, 195, 0.7);
               margin: 0;
               padding: 0;
               font-size: $font-s;
+            }
+          }
+        }
+
+        .result-section-area2-more {
+
+          .result-section-area2-more-title {
+            font-size: $font-m;
+            margin-top: 75px;
+
+            span {
+              font-size: $font-xm;
+              vertical-align: -4px;
+            }
+          }
+
+          .result-section-area2-more-layout {
+            display: flex;
+            margin-left: calc(360px / -2 + 72px);
+            margin-bottom: 100px;
+          }
+
+          .result-section-area2-more-layout-9 {}
+
+          .result-section-area2-more-layout-8 {
+            .result-section-area2-more-column-0 {}
+
+            .result-section-area2-more-column-1 {
+              margin-top: calc(360px / 2);
+              margin-left: -36px;
+            }
+
+            .result-section-area2-more-column-2 {
+              margin-left: -36px;
+            }
+          }
+
+          .result-section-area2-more-layout-7 {
+            .result-section-area2-more-column-0 {
+              margin-top: calc(360px / 2);
+            }
+
+            .result-section-area2-more-column-1 {
+              margin-left: -36px;
+            }
+
+            .result-section-area2-more-column-2 {
+              margin-top: calc(360px / 2);
+              margin-left: -36px;
+            }
+          }
+
+          .result-section-area2-more-column {
+            div {
+              margin: 16px;
+            }
+          }
+
+          .result-section-area2-more-item {
+            img {
+              width: 360px;
+            }
+
+            p {
+              position: absolute;
+              writing-mode: vertical-rl;
+              font-size: $font-sm;
             }
           }
         }
