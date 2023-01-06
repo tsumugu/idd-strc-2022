@@ -20,6 +20,7 @@ export const teachers = {
   },
   hayashi: {
     name: "林響太朗講師",
+    img: require("@/assets/imgs/shindan/teachers/noimg.png"),
     kamoku: [
       "演出表現演習"
     ],
@@ -34,6 +35,7 @@ export const teachers = {
   },
   aida: {
     name: "会田大也講師",
+    img: require("@/assets/imgs/shindan/teachers/noimg.png"),
     kamoku: [
       "ストーリーテリング演習",
       "社会デザイン論"

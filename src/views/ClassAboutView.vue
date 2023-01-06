@@ -19,11 +19,12 @@
           <p class="midashi">この授業の教員紹介</p>
           <p>{{ teacher.about }}</p>
         </div>
-        <div class="class-about-teacher-inner">
+        <div class="class-about-teacher-inner"
+          v-bind:class="{ 'layout-normal': teacher.about != undefined, 'layout-noabout': teacher.about == undefined }">
           <div class="class-about-teacher-kamoku">
             <p>担当科目</p>
             <ul>
-              <li v-for="(kamoku, index2) in teacher.kamoku" :key=index2>
+              <li v-for="(kamoku, index2) in   teacher.kamoku" :key=index2>
                 {{ kamoku }}
               </li>
             </ul>
@@ -32,7 +33,7 @@
             <img :src=teacher.img>
             <p>{{ teacher.name }}</p>
           </div>
-          <div class="class-about-teacher-igaina" v-show="teacher.igaina != undefined">
+          <div class="class-about-teacher-igaina" v-bind:class="{ 'igaina-hide': teacher.igaina == undefined }">
             <p>意外な一面</p>
             <ul>
               <li v-for="(igaina, index3) in teacher.igaina" :key=index3>
@@ -45,18 +46,16 @@
     </div>
     <div class="class-about-facilities" v-show="facilities.length >= 1">
       <p class="midashi">この授業で使用できる施設や機材</p>
-      <div>
-        <div v-for="(facility, index) in facilities" :key=index>
+      <div class="class-about-facilities-items">
+        <div class="class-about-facilities-item" v-for="(facility, index) in facilities" :key=index>
           <img :src=facility.img>
+          <p>{{ facility.name }}</p>
         </div>
       </div>
     </div>
-    <!--
     <div class="other-class">
-      <p class="midashi">他の授業も見てみる？</p>
-      <OtherClassesComponent />
+      <OtherClassesComponent :result-class-name="this.$route.params.classname" />
     </div>
-    -->
     <FooterComponent />
   </main>
 </template>
@@ -64,13 +63,13 @@
 <script>
 import HeaderComponent from '@/components/HeaderComponent.vue';
 import FooterComponent from '@/components/FooterComponent.vue';
-//import OtherClassesComponent from '@/components/OtherClassesComponent.vue';
+import OtherClassesComponent from '@/components/OtherClassesComponent.vue';
 import { classes } from '@/assets/shindan_info/classes';
 
 export default {
   name: 'ClassAboutView',
   components: {
-    //OtherClassesComponent,
+    OtherClassesComponent,
     HeaderComponent,
     FooterComponent
   },
@@ -111,12 +110,12 @@ export default {
 
   display: flex;
   align-items: center;
-
   flex-direction: column;
 
   .class-about-bg {
     position: relative;
     margin-top: -35vh;
+    margin-bottom: 56px;
 
     img {
       width: 50vw;
@@ -137,7 +136,7 @@ export default {
   .class-about-kataru,
   .class-about-teacher-description {
     border-radius: 120px;
-    margin: 56px;
+    margin: 28px;
     padding: 30px;
     background-color: rgba(163, 136, 199, 0.35);
 
@@ -166,11 +165,9 @@ export default {
       align-items: center;
       flex-direction: column;
 
-      .class-about-teacher-inner {
-        display: flex;
-        flex-direction: row;
+      margin-bottom: 56px;
 
-        margin-top: -70px;
+      .class-about-teacher-inner {
 
         .class-about-teacher-nameandimg {
           img {
@@ -187,8 +184,9 @@ export default {
 
         .class-about-teacher-kamoku,
         .class-about-teacher-igaina {
+          width: 35vw;
           border-radius: 54px;
-          margin: 56px;
+          margin: 28px;
           padding: 30px;
           background-color: rgba(163, 136, 199, 0.35);
 
@@ -206,74 +204,109 @@ export default {
             padding: 0;
           }
         }
+
+        .igaina-hide {
+          opacity: 0;
+        }
+      }
+
+      .layout-normal {
+        display: flex;
+        flex-direction: row;
+
+        margin-top: -40px;
+
+        .class-about-teacher-kamoku,
+        .class-about-teacher-igaina {
+          margin-top: 72px;
+        }
+
+        /* 左上にしっぽを表示 */
+        .class-about-teacher-igaina {
+          position: relative;
+        }
+
+        .class-about-teacher-igaina::before {
+          position: absolute;
+          border-right: 18px solid transparent;
+          border-bottom: calc(18px * 1.41421356) solid rgba(163, 136, 199, 0.35);
+          border-left: 18px solid transparent;
+          transform: rotate(-55deg);
+          content: "";
+          top: 0px;
+          left: -26px;
+        }
+      }
+
+      .layout-noabout {
+        .class-about-teacher-kamoku {
+          margin-bottom: 0;
+          width: 35vw;
+          border-radius: 120px;
+          padding: 30px;
+        }
+
+        .class-about-teacher-nameandimg {
+          margin-top: -20px;
+        }
+
+        .igaina-hide {
+          display: none;
+        }
+
+        /* 真上にしっぽを表示 */
+        .class-about-teacher-igaina {
+          position: relative;
+          margin-top: calc(54px - 15px);
+        }
+
+        .class-about-teacher-igaina::before {
+          position: absolute;
+          border-right: 18px solid transparent;
+          border-bottom: calc(18px * 1.41421356) solid rgba(163, 136, 199, 0.35);
+          border-left: 18px solid transparent;
+          content: "";
+          top: calc(-18px * 2);
+          left: calc(50% - 18px);
+        }
+
+      }
+
+    }
+  }
+
+  .class-about-facilities {
+    width: 100vw;
+    background-color: rgba(163, 136, 199, 0.35);
+    padding: 60px;
+    margin-bottom: 56px;
+
+    .midashi {
+      font-size: $font-m;
+      border-bottom: 5px solid $white;
+      margin-top: 0;
+      padding-bottom: -2px;
+      display: inline-block;
+    }
+
+    .class-about-facilities-items {
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+
+      .class-about-facilities-item {
+        img {
+          width: 280px;
+        }
+
+        p {
+          font-size: $font-sm;
+          margin: 0;
+          padding: 0;
+        }
       }
     }
   }
 
 }
-
-/*
-.class-about {
-  color: $white;
-  background-color: $color-bg;
-  width: 100vw;
- 
-
-  .class-about-topmargin {
-    width: 75vw;
-  }
-
-  .class-about-facilities-topmargin {
-
-    width: 100vw;
-
-    background-color: rgba(163, 136, 199, 0.35);
-
-    .midashi {
-      font-size: $font-sm;
-    }
-  }
-
-  .other-class {
-    position: absolute;
-    top: 150vh;
-
-    .midashi {
-      font-size: $font-m;
-    }
-  }
-
-  .class-about-bg {
-    position: relative;
-    top: -100vh;
-
-    img {
-      width: 100%;
-    }
-  }
-
-  .class-about-description-area {
-
-    .midashi {
-      font-size: $font-sm;
-    }
-
-    .min-width {
-      width: 45vw;
-    }
-
-    .wide-width {
-      width: 75vw;
-    }
-
-    margin: 30px;
-
-    .class-about-description-area-inner {
-      border-radius: 120px;
-      padding: 30px;
-      background-color: rgba(163, 136, 199, 0.35);
-    }
-  }
-}
-*/
 </style>

@@ -1,6 +1,18 @@
 <template>
   <main class="event">
+    <TopPlanetComponent :imgPath='require("@/assets/imgs/event/top5.png")' title="イベント情報" />
+    <div class="circles">
+      <div class="circle circle0 font-bunkyu-midashi"><a href="/event/detail/oc">オープンキャンパス</a></div>
+      <div class="circle circle1 font-bunkyu-midashi"><a href="/event/detail/geisai">多摩美術大学<br>芸術祭</a></div>
 
+      <div class="circle circle2 font-bunkyu-midashi"><a href="/event/detail/sotsusei">卒業制作展</a></div>
+
+      <div class="circle circle3 font-bunkyu-midashi"><a href="/event/access">アクセス</a></div>
+    </div>
+    <BottomSpacer />
+    <HeaderComponent />
+    <FooterComponent />
+    <!--
     <section class="event-top" v-show="isShowTop">
       <TopPlanetComponent :imgPath='require("@/assets/imgs/event/top5.png")' title="" />
       <p class="title">ー イベント情報 ー</p>
@@ -426,16 +438,24 @@
         <p class="marutext3"><a href="/event/detail/sotsusei">卒業制作展</a></p>
       </section>
     </section>
+    -->
   </main>
 </template>
 
 <script>
 import TopPlanetComponent from '@/components/TopPlanetComponent.vue';
+import HeaderComponent from '@/components/HeaderComponent.vue';
+import BottomSpacer from '@/components/BottomSpacer.vue';
+import FooterComponent from '@/components/FooterComponent.vue';
 export default {
   name: 'EventView',
   components: {
-    TopPlanetComponent
+    TopPlanetComponent,
+    HeaderComponent,
+    BottomSpacer,
+    FooterComponent
   },
+  /*
   data() {
     return {
       isShowTop: false,
@@ -530,12 +550,54 @@ export default {
         this.isShowTop = true;
     }
   }
+  */
 }
 </script>
 
 <style lang="scss" scoped>
 @import '@/assets/scss/main.scss';
 
+.event {
+  width: 100vw;
+  background-color: $color-bg;
+  color: $white;
+
+  .circles {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+
+    margin-top: -200px;
+    margin-left: -250px;
+    margin-bottom: 56px;
+
+    .circle {
+      a {
+        width: 500px;
+        height: 500px;
+        border: 4px solid $white;
+        border-radius: 50%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        color: $white;
+        text-decoration: none;
+        font-size: $font-m;
+      }
+    }
+
+    .circle0,
+    .circle2 {
+      margin-left: 750px;
+    }
+  }
+}
+
+/*
 .event {
   width: 100vw;
   height: 350vh;
@@ -558,7 +620,7 @@ export default {
       font-weight: 900;
       font-size: $font-m;
       line-height: $font-x;
-      /* identical to box height */
+      
 
 
       color: #FFFFFF;
@@ -709,7 +771,7 @@ export default {
         font-weight: 900;
         font-size: $font-m;
         line-height: $font-x;
-        /* identical to box height */
+        
 
 
         color: #FFFFFF;
@@ -727,7 +789,7 @@ export default {
         font-weight: 900;
         font-size: $font-m;
         line-height: $font-x;
-        /* identical to box height */
+        
 
 
         color: #FFFFFF;
@@ -792,7 +854,7 @@ export default {
         font-weight: 900;
         font-size: $font-m;
         line-height: $font-x;
-        /* identical to box height */
+        
 
 
         color: #FFFFFF;
@@ -823,7 +885,7 @@ export default {
         font-weight: 900;
         font-size: $font-m;
         line-height: $font-x;
-        /* identical to box height */
+        
 
 
         color: #FFFFFF;
@@ -854,7 +916,7 @@ export default {
         font-weight: 900;
         font-size: $font-m;
         line-height: $font-x;
-        /* identical to box height */
+        
 
 
         color: #FFFFFF
@@ -879,7 +941,7 @@ export default {
         font-weight: 900;
         font-size: $font-m;
         line-height: $font-x;
-        /* identical to box height */
+        
 
 
         color: #FFFFFF;
@@ -897,7 +959,7 @@ export default {
         font-weight: 900;
         font-size: $font-m;
         line-height: $font-x;
-        /* identical to box height */
+        
 
 
         color: #FFFFFF;
@@ -945,7 +1007,7 @@ export default {
         font-weight: 900;
         font-size: $font-m;
         line-height: $font-xm;
-        /* identical to box height */
+        
 
         display: flex;
         align-items: center;
@@ -1004,7 +1066,7 @@ export default {
         font-weight: 900;
         font-size: $font-m;
         line-height: $font-x;
-        /* identical to box height */
+        
 
 
         color: #FFFFFF;
@@ -1022,7 +1084,7 @@ export default {
         font-weight: 900;
         font-size: $font-m;
         line-height: $font-xm;
-        /* identical to box height */
+        
 
 
         color: #FFFFFF;
@@ -1053,7 +1115,7 @@ export default {
         font-weight: 900;
         font-size: $font-m;
         line-height: $font-xm;
-        /* identical to box height */
+        
 
 
         color: #FFFFFF;
@@ -1091,7 +1153,7 @@ export default {
         font-weight: 900;
         font-size: $font-m;
         line-height: $font-x;
-        /* identical to box height */
+        
 
 
         color: #FFFFFF;
@@ -1109,7 +1171,7 @@ export default {
         font-weight: 900;
         font-size: $font-m;
         line-height: $font-x;
-        /* identical to box height */
+        
 
 
         color: #FFFFFF;
@@ -1174,7 +1236,7 @@ export default {
         font-weight: 900;
         font-size: $font-m;
         line-height: $font-x;
-        /* identical to box height */
+        
 
 
         color: #FFFFFF;
@@ -1205,7 +1267,7 @@ export default {
         font-weight: 900;
         font-size: $font-m;
         line-height: $font-xm;
-        /* identical to box height */
+        
 
 
         color: #FFFFFF;
@@ -1236,7 +1298,7 @@ export default {
         font-weight: 900;
         font-size: $font-m;
         line-height: $font-xm;
-        /* identical to box height */
+        
 
 
         color: #FFFFFF;
@@ -1262,7 +1324,7 @@ export default {
       font-weight: 900;
       font-size: $font-m;
       line-height: $font-x;
-      /* identical to box height */
+      
 
 
       color: #FFFFFF;
@@ -1290,7 +1352,7 @@ export default {
       font-weight: 900;
       font-size: $font-m;
       line-height: $font-xm;
-      /* identical to box height */
+      
 
 
       color: #FFFFFF;
@@ -1345,7 +1407,7 @@ export default {
       font-weight: 900;
       font-size: $font-m;
       line-height: $font-xm;
-      /* identical to box height */
+      
 
 
       color: #FFFFFF;
@@ -1456,7 +1518,7 @@ export default {
       font-weight: 900;
       font-size: $font-m;
       line-height: $font-x;
-      /* identical to box height */
+      
 
 
       color: #FFFFFF;
@@ -1517,7 +1579,7 @@ export default {
       font-weight: 900;
       font-size: $font-m;
       line-height: $font-xm;
-      /* identical to box height */
+      
 
       text-align: center;
 
@@ -1549,7 +1611,7 @@ export default {
       font-weight: 900;
       font-size: $font-m;
       line-height: $font-xm;
-      /* identical to box height */
+      
 
       text-align: center;
 
@@ -1577,7 +1639,7 @@ export default {
         font-weight: 900;
         font-size: $font-m;
         line-height: $font-x;
-        /* identical to box height */
+        
 
 
         color: #FFFFFF;
@@ -1595,7 +1657,7 @@ export default {
         font-weight: 900;
         font-size: $font-m;
         line-height: $font-x;
-        /* identical to box height */
+        
 
         text-align: center;
 
@@ -1627,7 +1689,7 @@ export default {
         font-weight: 900;
         font-size: $font-sm;
         line-height: $font-m;
-        /* identical to box height */
+        
 
         text-align: center;
 
@@ -1746,7 +1808,7 @@ export default {
         font-weight: 900;
         font-size: $font-m;
         line-height: $font-x;
-        /* identical to box height */
+        
 
 
         color: #FFFFFF;
@@ -1807,7 +1869,7 @@ export default {
         font-weight: 900;
         font-size: $font-m;
         line-height: $font-xm;
-        /* identical to box height */
+        
 
         text-align: center;
 
@@ -1839,7 +1901,7 @@ export default {
         font-weight: 900;
         font-size: $font-m;
         line-height: $font-xm;
-        /* identical to box height */
+        
 
         text-align: center;
 
@@ -1861,7 +1923,7 @@ export default {
         font-weight: 900;
         font-size: $font-m;
         line-height: $font-x;
-        /* identical to box height */
+        
 
 
         color: #FFFFFF;
@@ -1879,7 +1941,7 @@ export default {
         font-weight: 900;
         font-size: $font-m;
         line-height: $font-x;
-        /* identical to box height */
+        
 
         text-align: center;
 
@@ -1911,7 +1973,7 @@ export default {
         font-weight: 900;
         font-size: $font-sm;
         line-height: $font-m;
-        /* identical to box height */
+        
 
         text-align: center;
 
@@ -1960,7 +2022,7 @@ export default {
         font-weight: 900;
         font-size: $font-s;
         line-height: $font-sm;
-        /* identical to box height */
+        
 
         text-align: center;
 
@@ -2032,7 +2094,7 @@ export default {
         font-weight: 900;
         font-size: $font-m;
         line-height: $font-x;
-        /* identical to box height */
+        
 
 
         color: #FFFFFF;
@@ -2093,7 +2155,7 @@ export default {
         font-weight: 900;
         font-size: $font-m;
         line-height: $font-xm;
-        /* identical to box height */
+        
 
         text-align: center;
 
@@ -2125,7 +2187,7 @@ export default {
         font-weight: 900;
         font-size: $font-m;
         line-height: $font-xm;
-        /* identical to box height */
+        
 
         text-align: center;
 
@@ -2146,7 +2208,7 @@ export default {
         font-weight: 900;
         font-size: $font-m;
         line-height: $font-x;
-        /* identical to box height */
+        
 
 
         color: #FFFFFF;
@@ -2164,7 +2226,7 @@ export default {
         font-weight: 900;
         font-size: $font-m;
         line-height: $font-x;
-        /* identical to box height */
+        
 
         text-align: center;
 
@@ -2196,7 +2258,7 @@ export default {
         font-weight: 900;
         font-size: $font-sm;
         line-height: $font-m;
-        /* identical to box height */
+        
 
         text-align: center;
 
@@ -2245,7 +2307,7 @@ export default {
         font-weight: 900;
         font-size: $font-s;
         line-height: $font-sm;
-        /* identical to box height */
+        
 
         text-align: center;
 
@@ -2290,7 +2352,7 @@ export default {
         font-weight: 900;
         font-size: $font-m;
         line-height: $font-x;
-        /* identical to box height */
+        
 
 
         color: #FFFFFF;
@@ -2351,7 +2413,7 @@ export default {
         font-weight: 900;
         font-size: $font-m;
         line-height: $font-xm;
-        /* identical to box height */
+        
 
         text-align: center;
 
@@ -2383,7 +2445,7 @@ export default {
         font-weight: 900;
         font-size: $font-m;
         line-height: $font-xm;
-        /* identical to box height */
+        
 
         text-align: center;
 
@@ -2404,7 +2466,7 @@ export default {
         font-weight: 900;
         font-size: $font-m;
         line-height: $font-x;
-        /* identical to box height */
+        
 
 
         color: #FFFFFF;
@@ -2422,7 +2484,7 @@ export default {
         font-weight: 900;
         font-size: $font-m;
         line-height: $font-x;
-        /* identical to box height */
+        
 
         text-align: center;
 
@@ -2454,7 +2516,7 @@ export default {
         font-weight: 900;
         font-size: $font-sm;
         line-height: $font-m;
-        /* identical to box height */
+        
 
         text-align: center;
 
@@ -2503,7 +2565,7 @@ export default {
         font-weight: 900;
         font-size: $font-s;
         line-height: $font-sm;
-        /* identical to box height */
+        
 
         text-align: center;
 
@@ -2548,7 +2610,7 @@ export default {
         font-weight: 900;
         font-size: $font-m;
         line-height: $font-x;
-        /* identical to box height */
+        
 
 
         color: #FFFFFF;
@@ -2609,7 +2671,7 @@ export default {
         font-weight: 900;
         font-size: $font-m;
         line-height: $font-xm;
-        /* identical to box height */
+        
 
         text-align: center;
 
@@ -2641,13 +2703,14 @@ export default {
         font-weight: 900;
         font-size: $font-m;
         line-height: $font-xm;
-        /* identical to box height */
+        
 
         text-align: center;
 
         color: #FFFFFF;
       }
     }
-  }
+  } 
 }
+*/
 </style>

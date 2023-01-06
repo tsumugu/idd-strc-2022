@@ -32,8 +32,9 @@
         <section class="shindan-section" v-show="currPageNumber == 1">
           <ul>
             <li v-for="question in questions" :key="question.index">
-              <p class="shindan-text">Q<span class="shindan-index-number font-bunkyu-db">{{ question.index + 1
-}}</span><span class="shindan-text-spacer"></span>{{ question.questionTexts[0] }}</p>
+              <p class="shindan-text">Q<span class="shindan-index-number font-bunkyu-db">{{
+                question.index + 1
+              }}</span><span class="shindan-text-spacer"></span>{{ question.questionTexts[0] }}</p>
               <div class="answer-select">
                 <div class="answer-select-item">
                   <span class="answer-select-item-inner answer-select-item-inner-1">
@@ -102,16 +103,7 @@
               </div>
             </div>
             <div class="result-section-area2-more">
-              <div class="result-section-area2-more-title font-bunkyu-midashi">他の授業も見てみる<span>？</span></div>
-              <div class="result-section-area2-more-layout"
-                v-bind:class="{ 'result-section-area2-more-layout-9': otherClasses.length == 9, 'result-section-area2-more-layout-8': otherClasses.length == 8, 'result-section-area2-more-layout-7': otherClasses.length == 7 }">
-                <div v-for="(columnItems, index) in otherClassesDisp" :key=index
-                  class="result-section-area2-more-column" v-bind:class="['result-section-area2-more-column-' + index]">
-                  <div v-for="(classinfo, index2) in columnItems" :key=index2 class="result-section-area2-more-item">
-                    <router-link :to="'/class-about/' + classinfo.key"><img :src=classinfo.img></router-link>
-                  </div>
-                </div>
-              </div>
+              <OtherClassesComponent :result-classes="resultClasses" />
             </div>
           </div>
         </section>
@@ -124,31 +116,15 @@
 <script>
 import { abilities } from "../assets/shindan_info/abilities";
 import { questions } from "../assets/shindan_info/questions";
-import { classes } from "@/assets/shindan_info/classes";
 import HeaderComponent from '@/components/HeaderComponent.vue';
 import FooterComponent from '@/components/FooterComponent.vue';
+import OtherClassesComponent from '@/components/OtherClassesComponent.vue';
 export default {
   name: 'ShindanView',
   components: {
     HeaderComponent,
-    FooterComponent
-  },
-  watch: {
-    otherClasses: function () {
-      const length = this.otherClasses.length;
-      if (length == 9) {
-        // 3-3-3
-        this.otherClassesDisp = [this.otherClasses.slice(0, 3), this.otherClasses.slice(3, 6), this.otherClasses.slice(6, 9)]
-      } else if (length == 8) {
-        // 3-2-3
-        this.otherClassesDisp = [this.otherClasses.slice(0, 3), this.otherClasses.slice(3, 5), this.otherClasses.slice(5, 8)]
-      } else if (length == 7) {
-        // 2-3-2
-        this.otherClassesDisp = [this.otherClasses.slice(0, 2), this.otherClasses.slice(2, 5), this.otherClasses.slice(5, 7)]
-      }
-      console.log(this.otherClasses, this.otherClassesDisp);
-      //this.otherClassesDisp
-    }
+    FooterComponent,
+    OtherClassesComponent
   },
   methods: {
     getOneAtRandom: function (array) {
@@ -187,11 +163,6 @@ export default {
       const topRes = Array.from(sortedResMap)[0][0];
       this.resultClasses = topRes.classes;
       this.resultGenreName = topRes.genreName;
-      // その他の授業を取り出す
-      const classesNames = Object.keys(classes);
-      const resultClassesNames = this.resultClasses.map(e => e.key);
-      const resultClassesNamesDiff = classesNames.filter(e => !resultClassesNames.includes(e));
-      this.otherClasses = resultClassesNamesDiff.map(name => classes[name]);
     },
     retry: function () {
       this.resultClasses = [];
@@ -223,8 +194,6 @@ export default {
     return {
       questions: questions,
       resultClasses: [],
-      otherClasses: [],
-      otherClassesDisp: [],
       resultGenreName: null,
       currPageNumber: 0,
       answer0: null,
@@ -234,17 +203,7 @@ export default {
       answer4: null,
       isShowDialog: false
     }
-  },
-  // mounted: function () {
-  //   const index = 3;
-  //   this.resultClasses = abilities[index].classes;
-  //   this.resultGenreName = abilities[index].genreName;
-  //   // その他の授業を取り出す
-  //   const classesNames = Object.keys(classes);
-  //   const resultClassesNames = this.resultClasses.map(e => e.key);
-  //   const resultClassesNamesDiff = classesNames.filter(e => !resultClassesNames.includes(e));
-  //   this.otherClasses = resultClassesNamesDiff.map(name => classes[name]);
-  // }
+  }
 }
 </script>
 
@@ -807,6 +766,8 @@ $color-about-shindan-selected: rgba(137, 116, 195, 0.7);
           align-items: center;
           gap: 60px;
 
+          margin-bottom: 75px;
+
           .result-section-area2-retryandshare-retry {
             button {
               color: $white;
@@ -839,73 +800,6 @@ $color-about-shindan-selected: rgba(137, 116, 195, 0.7);
               margin: 0;
               padding: 0;
               font-size: $font-s;
-            }
-          }
-        }
-
-        .result-section-area2-more {
-
-          .result-section-area2-more-title {
-            font-size: $font-m;
-            margin-top: 75px;
-
-            span {
-              font-size: $font-xm;
-              vertical-align: -4px;
-            }
-          }
-
-          .result-section-area2-more-layout {
-            display: flex;
-            margin-left: calc(360px / -2 + 72px);
-            margin-bottom: 100px;
-          }
-
-          .result-section-area2-more-layout-9 {}
-
-          .result-section-area2-more-layout-8 {
-            .result-section-area2-more-column-0 {}
-
-            .result-section-area2-more-column-1 {
-              margin-top: calc(360px / 2);
-              margin-left: -36px;
-            }
-
-            .result-section-area2-more-column-2 {
-              margin-left: -36px;
-            }
-          }
-
-          .result-section-area2-more-layout-7 {
-            .result-section-area2-more-column-0 {
-              margin-top: calc(360px / 2);
-            }
-
-            .result-section-area2-more-column-1 {
-              margin-left: -36px;
-            }
-
-            .result-section-area2-more-column-2 {
-              margin-top: calc(360px / 2);
-              margin-left: -36px;
-            }
-          }
-
-          .result-section-area2-more-column {
-            div {
-              margin: 16px;
-            }
-          }
-
-          .result-section-area2-more-item {
-            img {
-              width: 360px;
-            }
-
-            p {
-              position: absolute;
-              writing-mode: vertical-rl;
-              font-size: $font-sm;
             }
           }
         }
