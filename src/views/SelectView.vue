@@ -1,9 +1,11 @@
 <template>
   <main class="select" ref="body">
     <HeaderComponent />
-    <div id="mouse-stalker" ref="mousestalker">
-      <div id="mouse-stalker-inner">
-        &lt; &gt;
+    <div id="mouse-stalker-wrapper" ref="mousestalker">
+      <div id="mouse-stalker">
+        <div id="mouse-stalker-inner">
+          &lt; &gt;
+        </div>
       </div>
     </div>
     <div class="select-wrapper">
@@ -11,12 +13,12 @@
         <img :src=planetImgUrl>
       </div>
       <div class="class-title">
+        <div class="class-title-text font-bunkyu-midashi">{{ classTitle }}</div>
         <!--
-      参考：https://www.conifer.jp/csstest/svg-path-text.html
-      -->
+        参考：https://www.conifer.jp/csstest/svg-path-text.html
+        -->
         <div class="class-title-svg">
           <svg width="1000px" height="500px" viewBox="0 0 1000 500">
-            <!--<svg preserveAspectRatio="xMinYMin meet">-->
             <defs>
               <path id="st0"
                 d="M6.77,15.35C0,148.53,211.99,300.86,550.89,309.96c328.57,8.82,541.99-118.12,548.56-251.76" />
@@ -98,28 +100,30 @@ export default {
       } else if (0 > this.currPageNum) {
         this.currPageNum = classes.length - 1;
       }
-      console.log(this.currPageNum);
       this.onPageSelected(this.currPageNum);
     }
   },
   mounted: function () {
     const waitCertainIntervalExecutor = new WaitCertainIntervalExecutor();
+    const deltaXThreshold = 50;
     const deltaYThreshold = 50;
+    const mouseStalkerVisibleStatus = document.getElementById("mouse-stalker");
+    console.log(mouseStalkerVisibleStatus, mouseStalkerVisibleStatus.style.display);
     window.addEventListener('wheel', (e) => {
+      // Macの場合は、設定 > トラックパッド > その他のジェスチャー > ページ間をスワイプ をオフにする必要あり
+      const deltaX = e.deltaX;
       const deltaY = e.deltaY;
-      if (Math.abs(deltaY) > deltaYThreshold) {
+      if (Math.abs(deltaX) > deltaXThreshold | Math.abs(deltaY) > deltaYThreshold) {
         waitCertainIntervalExecutor.exec(1000, () => {
-          if (deltaY > 0) {
+          if (deltaX > 0 | deltaY > 0) {
             this.move(1);
-          } else if (deltaY < 0) {
+          } else if (deltaX < 0 | deltaY < 0) {
             this.move(-1);
           }
         });
       }
     });
-
     const stalker = this.$refs.mousestalker;
-    //const body = this.$refs.body;
 
     window.addEventListener('mousemove', function (e) {
       if (["textPath", "BUTTON"].includes(e.target.tagName) || ["header-menu-wrapper", "logo_position", "menu_pc", "header-menu", "header-menu-wrapper", "header-menu-items", "header-menu-item"].includes(e.target.className)) {
@@ -135,6 +139,8 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/scss/main.scss';
+@import "@/assets/scss/_breakpoint.scss";
+@import "@/assets/scss/_mixin.scss";
 
 .select {
   position: absolute;
@@ -145,35 +151,44 @@ export default {
   background-color: $color-bg;
   overflow: hidden;
 
-  #mouse-stalker {
-    pointer-events: none;
+  #mouse-stalker-wrapper {
     position: fixed;
     top: -75px;
     left: -75px;
+    z-index: 999;
     width: 150px;
     height: 150px;
-    backdrop-filter: blur(40px);
-    background-color: rgba(57, 76, 89, 0.32);
-    border-radius: 50%;
     transform: translate(0, 0);
     transition: transform 0.2s;
     transition-timing-function: ease-out;
-    z-index: 999;
+    pointer-events: none;
 
-    #mouse-stalker-inner {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
+    #mouse-stalker {
+      width: 150px;
+      height: 150px;
       backdrop-filter: blur(40px);
-      background-color: rgba(57, 76, 89, 0.1);
-      transform: translate(25%, 25%);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      background-color: rgba(57, 76, 89, 0.32);
+      border-radius: 50%;
 
-      color: $white;
-      font-size: $font-xsm;
+      @include mq(lg) {
+        display: none;
+      }
+
+      #mouse-stalker-inner {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        backdrop-filter: blur(40px);
+        background-color: rgba(57, 76, 89, 0.1);
+        transform: translate(25%, 25%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        color: $white;
+        font-size: $font-xsm;
+      }
     }
   }
 
@@ -181,25 +196,59 @@ export default {
     position: relative;
     max-width: $large-width;
     margin: 0 auto;
+
+    @include mq(lg) {
+      height: 100%;
+    }
   }
 
   .planet-img {
     img {
       position: absolute;
       left: 0;
-      top: 0;
+      top: -60%;
       width: 100%;
+
+      @include mq(lg) {
+        top: 50%;
+        left: 35%;
+        width: auto;
+        height: 70%;
+        transform: translate(0, -50%)
+      }
     }
   }
 
   .class-title {
     margin: auto;
 
+    .class-title-text {
+      position: absolute;
+      top: 120px;
+      left: 40px;
+
+      writing-mode: vertical-rl;
+      font-size: $font-xsm;
+
+      -webkit-text-stroke: 1px $white;
+      color: transparent;
+
+      display: none;
+
+      @include mq(lg) {
+        display: block;
+      }
+    }
+
     .class-title-svg {
       position: relative;
       width: 100%;
       padding-top: 100%;
       z-index: 3;
+
+      @include mq(lg) {
+        display: none;
+      }
 
       svg {
         transform: rotate(-4.5deg);
@@ -230,12 +279,29 @@ export default {
     width: 100%;
     aspect-ratio: 1.8 / 1;
 
+    @include mq(lg) {
+      aspect-ratio: auto;
+      /*top: auto;
+      bottom: 250px;*/
+      top: 650px;
+      bottom: auto;
+      left: -50px;
+    }
+
     .planet-selector {
       position: absolute;
       bottom: 0;
       left: 50%;
       z-index: 5;
       transform: translate(-35%, 0);
+
+      @include mq(lg) {
+        top: 0;
+        bottom: auto;
+        left: 30px;
+        transform: rotate(90deg);
+      }
+
     }
   }
 

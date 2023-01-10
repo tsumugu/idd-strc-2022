@@ -210,11 +210,6 @@ export default {
 <style lang="scss" scoped>
 @import '@/assets/scss/main.scss';
 
-$color-tategaki1: rgba(151, 34, 111, 0.54);
-$color-tategaki2: rgba(81, 68, 160, 0.54);
-$color-about-shindan: rgba(137, 116, 195, 0.27);
-$color-about-shindan-selected: rgba(137, 116, 195, 0.7);
-
 .shindan {
   position: absolute;
   top: 0;

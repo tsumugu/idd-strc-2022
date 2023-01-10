@@ -6,7 +6,7 @@
       <div v-for="(columnItems, index) in otherClassesDisp" :key=index class="column"
         v-bind:class="['column-' + index]">
         <div v-for="(classinfo, index2) in columnItems" :key=index2 class="item">
-          <router-link :to="'/class-about/' + classinfo.key"><img :src=classinfo.img></router-link>
+          <a :href="'/class-about/' + classinfo.key"><img :src=classinfo.img></a>
         </div>
       </div>
     </div>

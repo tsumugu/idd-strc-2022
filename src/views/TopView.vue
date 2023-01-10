@@ -1,9 +1,18 @@
 <template>
   <main class="top">
     <div class="menu">
-      <a href="/">
-        <img src="@/assets/imgs/menu.svg" />
-      </a>
+      <img src="@/assets/imgs/menu.svg" v-on:click="() => { this.isShowMenu = !this.isShowMenu }" />
+    </div>
+    <div class="header-menu-wrapper">
+      <div class="header-menu" v-show="isShowMenu">
+        <ul class="header-menu-items">
+          <li class="header-menu-item">情報デザイン学科とは</li>
+          <li class="header-menu-item">情報デザイン診断</li>
+          <li class="header-menu-item">就職・視覚</li>
+          <li class="header-menu-item">入試情報</li>
+          <li class="header-menu-item">イベント・アクセス</li>
+        </ul>
+      </div>
     </div>
     <div class="text">
       <p class="in4u-logo font-bely">
@@ -14,13 +23,26 @@
       <p class="rotate-text rotate-text-1 font-bely">2022. info x for you</p>
       <p class="rotate-text rotate-text-2 font-bely">Tama Art University</p>
     </div>
-    <div class="planet"></div>
+    <div class="planet">
+    </div>
+    <div class="planet-contents">
+      <div class="figure1"><img src="@/assets/imgs/top/top.png"></div>
+      <div class="figure2"><img src="@/assets/imgs/top/middle.png"></div>
+      <div class="figure3"><img src="@/assets/imgs/top/bottom.png"></div>
+      <div class="stars"><img src="@/assets/imgs/top/stars.png"></div>
+      <div class="wakusei"><img src="@/assets/imgs/top/wakusei.png"></div>
+    </div>
   </main>
 </template>
 
 <script>
 export default {
-  name: 'TopView'
+  name: 'TopView',
+  data() {
+    return {
+      isShowMenu: false
+    };
+  },
 }
 </script>
 
@@ -47,11 +69,66 @@ a {
   background-color: $color-bg;
   overflow: hidden;
 
+  .header-menu-wrapper {
+    position: relative;
+    z-index: 999;
+
+    .header-menu {
+      backdrop-filter: blur(40px);
+      background-color: rgba(57, 76, 89, 0.32);
+      display: inline-block;
+      border-radius: 31px;
+      position: absolute;
+      top: 105px;
+      right: 15%;
+      z-index: 1001;
+
+      @include mq(lg) {
+        right: calc(11% + 20px);
+      }
+
+      @include mq(md) {
+        //right: calc(11% + 20px);
+        right: 0;
+        width: 100%;
+      }
+
+      .header-menu-items {
+        .header-menu-item {
+          font-size: $font-m;
+          font-family: toppan-bunkyu-midashi-go-std, sans-serif;
+          font-weight: 900;
+          font-style: normal;
+          -webkit-text-stroke: 1px $white;
+          color: transparent;
+
+          position: relative;
+          list-style: none;
+
+          text-align: left;
+          padding: 23px 46px 23px 46px;
+        }
+
+        .header-menu-item::before {
+          content: "";
+          display: inline-block;
+          width: calc($font-lm * 2 / 3);
+          height: calc($font-lm * 2 / 3);
+          position: absolute;
+          top: calc($font-lm*1.6);
+          margin-left: calc(-1 * $font-lm - 10px);
+          background-image: url(../assets/imgs/shindan/radiobutton/button1.svg);
+          background-size: cover;
+        }
+      }
+    }
+  }
+
   .menu {
     position: absolute;
     top: 5%;
     right: 11%;
-    z-index: 3;
+    z-index: 30;
 
     img {
       width: 96px;
@@ -62,6 +139,7 @@ a {
       top: 5%;
       right: 5%;
     }
+
   }
 
   .menu:hover {
@@ -76,7 +154,7 @@ a {
     width: 100vw;
     height: 100vh;
     position: absolute;
-    z-index: 2;
+    z-index: 15;
 
     .in4u-logo {
       font-size: $font-xl;
@@ -93,6 +171,7 @@ a {
 
         @include mq(lg) {
           font-size: $font-x;
+          padding: 48vh 33vw 48vh 33vw;
         }
       }
     }
@@ -180,9 +259,81 @@ a {
     background-position: center;
 
     @include mq(lg) {
+      display: none;
+    }
+  }
+
+  .planet-contents {
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+
+    .wakusei {
       width: 100vw;
       height: 100vh;
-      background-size: contain;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      position: relative;
+      z-index: 5;
+
+      img {
+        width: 90%;
+      }
+    }
+
+    .figure1,
+    .figure2,
+    .figure3,
+    .stars {
+      position: absolute;
+      z-index: 2;
+      width: 100vw;
+      max-width: 700px;
+
+      img {
+        width: 100%;
+      }
+    }
+
+    .figure1 {
+      top: -20%;
+      left: -15%;
+    }
+
+    .figure2 {
+      top: 50%;
+      right: -30%;
+      transform: translate(0, -50%);
+    }
+
+    .figure3 {
+      bottom: -20%;
+      left: 0;
+    }
+
+    .stars {
+      width: 100vw;
+      height: 100vh;
+
+      z-index: 3;
+
+      img {
+        width: auto;
+        height: 100%;
+      }
+    }
+
+    display: none;
+
+    @include mq(lg) {
+      display: block;
     }
   }
 }

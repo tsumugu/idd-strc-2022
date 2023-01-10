@@ -35,10 +35,16 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/scss/main.scss';
+@import "@/assets/scss/_breakpoint.scss";
+@import "@/assets/scss/_mixin.scss";
 
 .indicator {
   display: flex;
   gap: 40px;
+
+  @include mq(lg) {
+    gap: 20px;
+  }
 
   button {
     width: 20px;

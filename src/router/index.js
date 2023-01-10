@@ -4,10 +4,13 @@ import TopView from '../views/TopView.vue'
 import SelectView from '../views/SelectView.vue'
 import AboutView from '../views/AboutView.vue'
 import ShindanView from '../views/ShindanView.vue'
+import ClassAboutView from '../views/ClassAboutView.vue'
 import JobView from '../views/JobView.vue'
 import AdmissionView from '../views/AdmissionView.vue'
 import EventView from '../views/EventView.vue'
-import ClassAboutView from '../views/ClassAboutView.vue'
+import EventDetailView from '../views/EventDetailView.vue'
+import AccessView from '../views/AccessView.vue'
+import BusView from '../views/BusView.vue'
 
 Vue.use(VueRouter)
 
@@ -33,6 +36,11 @@ const routes = [
     component: ShindanView
   },
   {
+    path: '/class-about/:classname',
+    name: 'class-about',
+    component: ClassAboutView
+  },
+  {
     path: '/job',
     name: 'job',
     component: JobView
@@ -48,19 +56,19 @@ const routes = [
     component: EventView
   },
   {
-    path: '/event/:pageName',
-    name: 'event-page',
-    component: EventView
+    path: '/event-detail/:eventname',
+    name: 'event-detail',
+    component: EventDetailView
   },
   {
-    path: '/event/:pageName/:sectionName',
-    name: 'event-section',
-    component: EventView
+    path: '/access',
+    name: 'access',
+    component: AccessView
   },
   {
-    path: '/class-about/:classname',
-    name: 'class-about',
-    component: ClassAboutView
+    path: '/bus/:busname/:direction',
+    name: 'bus',
+    component: BusView
   }
 ]
 

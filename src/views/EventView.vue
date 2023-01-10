@@ -2,12 +2,10 @@
   <main class="event">
     <TopPlanetComponent :imgPath='require("@/assets/imgs/event/top5.png")' title="イベント情報" />
     <div class="circles">
-      <div class="circle circle0 font-bunkyu-midashi"><a href="/event/detail/oc">オープンキャンパス</a></div>
-      <div class="circle circle1 font-bunkyu-midashi"><a href="/event/detail/geisai">多摩美術大学<br>芸術祭</a></div>
-
-      <div class="circle circle2 font-bunkyu-midashi"><a href="/event/detail/sotsusei">卒業制作展</a></div>
-
-      <div class="circle circle3 font-bunkyu-midashi"><a href="/event/access">アクセス</a></div>
+      <div class="circle circle0 font-bunkyu-midashi"><a href="/event-detail/oc">オープンキャンパス</a></div>
+      <div class="circle circle1 font-bunkyu-midashi"><a href="/event-detail/geisai">多摩美術大学<br>芸術祭</a></div>
+      <div class="circle circle2 font-bunkyu-midashi"><a href="/event-detail/sotsusei">卒業制作展</a></div>
+      <div class="circle circle3 font-bunkyu-midashi"><a href="/access">アクセス</a></div>
     </div>
     <BottomSpacer />
     <HeaderComponent />
@@ -587,6 +585,7 @@ export default {
         color: $white;
         text-decoration: none;
         font-size: $font-m;
+        background-color: $color-about-shindan;
       }
     }
 
