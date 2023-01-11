@@ -159,11 +159,11 @@ export default {
     color: $white;
     text-decoration: none;
     transform-origin: center;
-    animation: menuTextScaleOut 0.5s forwards;
+    /*animation: menuTextScaleOut 0.5s forwards;*/
   }
 
-  .logo_text:hover {
+  /*.logo_text:hover {
     animation: menuTextScaleOn 0.5s forwards;
-  }
+  }*/
 }
 </style>
