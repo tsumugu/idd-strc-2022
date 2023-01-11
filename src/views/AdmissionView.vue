@@ -180,6 +180,11 @@ export default {
 
       padding: 10px 30px 10px 30px;
       border-radius: 40px;
+
+      @include mq(lg) {
+        margin-top: 64px !important;
+        margin-bottom: 24px !important;
+      }
     }
 
     .types {
@@ -190,6 +195,7 @@ export default {
 
       @include mq(lg) {
         display: block;
+        margin-top: 280px;
       }
 
       .circles {
@@ -201,7 +207,6 @@ export default {
           place-items: center;
         }
       }
-
 
       .circle-2,
       .circle-4 {
@@ -263,6 +268,7 @@ export default {
         @include mq(lg) {
           width: 240px;
           height: 240px;
+          margin-bottom: 36px;
         }
 
         background: $color-job-company-bg;
@@ -299,6 +305,11 @@ export default {
 
     .schedule {
       display: inline-block;
+
+      @include mq(lg) {
+        width: 80%;
+        margin: 0 auto;
+      }
 
       table,
       td,
@@ -355,10 +366,24 @@ export default {
 
     .ninzu {
       display: inline-block;
+
+      @include mq(lg) {
+        width: 80%;
+        margin: 0 auto;
+
+        img {
+          width: 100%;
+        }
+      }
     }
 
     .kamoku {
       display: inline-block;
+
+      p {
+        margin: 0;
+        padding: 0;
+      }
 
       .kamoku-title {
         margin-top: 35px;
@@ -382,6 +407,12 @@ export default {
 
     .hennyu {
       display: inline-block;
+
+      @include mq(lg) {
+        width: 80%;
+        margin: 0 auto;
+        margin-bottom: 48px;
+      }
 
       .hennyu-title {
         margin: 0;
