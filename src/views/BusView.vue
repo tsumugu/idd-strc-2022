@@ -21,13 +21,13 @@
         </div>
         <div v-show="station == 'hachioji'">
           <p class="title">八王子駅バスダイヤ</p>
-          <div>
-            <div v-on:click="() => {
+          <div class="circles">
+            <div class="circle" v-on:click="() => {
               this.station = 'hachioji';
               this.direction = 'from';
               this.$router.push('/bus/hachioji/from');
             }">八王子駅発</div>
-            <div v-on:click="() => {
+            <div class="circle" v-on:click="() => {
               this.station = 'hachioji';
               this.direction = 'to';
               this.$router.push('/bus/hachioji/to');
