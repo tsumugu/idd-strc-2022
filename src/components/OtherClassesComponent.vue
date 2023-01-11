@@ -76,7 +76,7 @@ export default {
 .other-classes {
   .other-classes-inner {
     display: flex;
-    margin-left: calc(360px / -2 + 72px);
+    margin-left: calc(50% - 360px - 180px - 16px);
     margin-bottom: 100px;
   }
 

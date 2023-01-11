@@ -9,6 +9,7 @@ html,
 body,
 #app {
   height: 100vh;
+  width: 100vw;
   margin: 0;
   padding: 0;
 }
@@ -31,6 +32,12 @@ body,
 .font-bunkyu-midashi {
   font-family: toppan-bunkyu-midashi-go-std, sans-serif;
   font-weight: 900;
+  font-style: normal;
+}
+
+.font-bely-bunkyu-midashi {
+  font-family: bely-display, toppan-bunkyu-midashi-go-std, sans-serif;
+  font-weight: 400;
   font-style: normal;
 }
 

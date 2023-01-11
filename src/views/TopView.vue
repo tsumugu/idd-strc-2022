@@ -4,22 +4,24 @@
       <img src="@/assets/imgs/menu.svg" v-on:click="() => { this.isShowMenu = !this.isShowMenu }" />
     </div>
     <div class="header-menu-wrapper">
-      <div class="header-menu" v-show="isShowMenu">
-        <ul class="header-menu-items">
-          <li class="header-menu-item">情報デザイン学科とは</li>
-          <li class="header-menu-item">情報デザイン診断</li>
-          <li class="header-menu-item">就職・視覚</li>
-          <li class="header-menu-item">入試情報</li>
-          <li class="header-menu-item">イベント・アクセス</li>
-        </ul>
-      </div>
+      <transition name="menu">
+        <div class="header-menu" v-show="isShowMenu">
+          <ul class="header-menu-items">
+            <li class="header-menu-item"><a href="/about-idd" class="header-menu-item-link">情報デザインとは</a></li>
+            <li class="header-menu-item"><a href="/shindan" class="header-menu-item-link">情報デザイン診断</a></li>
+            <li class="header-menu-item"><a href="/job" class="header-menu-item-link">就職・視覚</a></li>
+            <li class="header-menu-item"><a href="/admission" class="header-menu-item-link">入試情報</a></li>
+            <li class="header-menu-item"><a href="/event" class="header-menu-item-link">イベント・アクセス</a></li>
+          </ul>
+        </div>
+      </transition>
     </div>
     <div class="text">
       <p class="in4u-logo font-bely">
         <router-link to="/select">IN4U</router-link>
       </p>
-      <p class="about about-1 font-bunkyu-midashi">0から情デを知れる</p>
-      <p class="about about-2 font-bunkyu-midashi">WEBサービス</p>
+      <p class="about about-1 font-bunkyu-midashi ">0から情デを知れる</p>
+      <p class="about about-2 font-bunkyu-midashi ">WEBサービス</p>
       <p class="rotate-text rotate-text-1 font-bely">2022. info x for you</p>
       <p class="rotate-text rotate-text-2 font-bely">Tama Art University</p>
     </div>
@@ -63,6 +65,16 @@ a {
   text-decoration: none;
 }
 
+.menu-enter-active,
+.menu-leave-active {
+  transition: all .3s;
+}
+
+.menu-enter,
+.menu-leave-to {
+  scale: 0;
+}
+
 .top {
   width: 100vw;
   height: 100vh;
@@ -75,13 +87,15 @@ a {
 
     .header-menu {
       backdrop-filter: blur(40px);
-      background-color: rgba(57, 76, 89, 0.32);
+      background-color: $top-headermenu-bg;
       display: inline-block;
       border-radius: 31px;
       position: absolute;
       top: 105px;
       right: 15%;
       z-index: 1001;
+
+      transform-origin: top right;
 
       @include mq(lg) {
         right: calc(11% + 20px);
@@ -94,19 +108,22 @@ a {
       }
 
       .header-menu-items {
-        .header-menu-item {
-          font-size: $font-m;
-          font-family: toppan-bunkyu-midashi-go-std, sans-serif;
-          font-weight: 900;
-          font-style: normal;
-          -webkit-text-stroke: 1px $white;
-          color: transparent;
 
+        .header-menu-item {
           position: relative;
           list-style: none;
 
           text-align: left;
           padding: 23px 46px 23px 46px;
+
+          a {
+            font-size: $font-m;
+            font-family: toppan-bunkyu-midashi-go-std, sans-serif;
+            font-weight: 900;
+            font-style: normal;
+            -webkit-text-stroke: 1px $white;
+            color: transparent;
+          }
         }
 
         .header-menu-item::before {
@@ -115,7 +132,7 @@ a {
           width: calc($font-lm * 2 / 3);
           height: calc($font-lm * 2 / 3);
           position: absolute;
-          top: calc($font-lm*1.6);
+          top: calc($font-lm * 1.6);
           margin-left: calc(-1 * $font-lm - 10px);
           background-image: url(../assets/imgs/shindan/radiobutton/button1.svg);
           background-size: cover;

@@ -2,7 +2,7 @@
   <main class="select" ref="body">
     <HeaderComponent />
     <div id="mouse-stalker-wrapper" ref="mousestalker">
-      <div id="mouse-stalker">
+      <div id="mouse-stalker" ref="mousestalkerelm">
         <div id="mouse-stalker-inner">
           &lt; &gt;
         </div>
@@ -12,8 +12,8 @@
       <div class="planet-img">
         <img :src=planetImgUrl>
       </div>
-      <div class="class-title">
-        <div class="class-title-text font-bunkyu-midashi">{{ classTitle }}</div>
+      <div class="class-title" v-bind:class="'slideout'">
+        <div class="class-title-text font-bunkyu-midashi"><router-link :to=routerTo>{{ classTitle }}</router-link></div>
         <!--
         参考：https://www.conifer.jp/csstest/svg-path-text.html
         -->
@@ -46,7 +46,7 @@ import { WaitCertainIntervalExecutor } from '@/utils/waitCertainIntervalExecutor
 
 const classes = [
   {
-    title: "情報デザイン学科とは",
+    title: "情報デザインとは",
     imgUrl: require('@/assets/imgs/select/about_idd.png'),
     routerTo: "about-idd"
   },
@@ -107,26 +107,39 @@ export default {
     const waitCertainIntervalExecutor = new WaitCertainIntervalExecutor();
     const deltaXThreshold = 50;
     const deltaYThreshold = 50;
-    const mouseStalkerVisibleStatus = document.getElementById("mouse-stalker");
-    console.log(mouseStalkerVisibleStatus, mouseStalkerVisibleStatus.style.display);
+    let isPC = window.getComputedStyle(this.$refs.mousestalkerelm).display != "none";
+    window.addEventListener('resize', () => {
+      isPC = window.getComputedStyle(this.$refs.mousestalkerelm).display != "none";
+    });
     window.addEventListener('wheel', (e) => {
       // Macの場合は、設定 > トラックパッド > その他のジェスチャー > ページ間をスワイプ をオフにする必要あり
       const deltaX = e.deltaX;
       const deltaY = e.deltaY;
-      if (Math.abs(deltaX) > deltaXThreshold | Math.abs(deltaY) > deltaYThreshold) {
-        waitCertainIntervalExecutor.exec(1000, () => {
-          if (deltaX > 0 | deltaY > 0) {
-            this.move(1);
-          } else if (deltaX < 0 | deltaY < 0) {
-            this.move(-1);
-          }
-        });
+      if (isPC) {
+        if (Math.abs(deltaX) > deltaXThreshold) {
+          waitCertainIntervalExecutor.exec(1000, () => {
+            if (deltaX > 0) {
+              this.move(1);
+            } else if (deltaX < 0) {
+              this.move(-1);
+            }
+          });
+        }
+      } else {
+        if (Math.abs(deltaY) > deltaYThreshold) {
+          waitCertainIntervalExecutor.exec(1000, () => {
+            if (deltaY > 0) {
+              this.move(1);
+            } else if (deltaY < 0) {
+              this.move(-1);
+            }
+          });
+        }
       }
     });
     const stalker = this.$refs.mousestalker;
-
     window.addEventListener('mousemove', function (e) {
-      if (["textPath", "BUTTON"].includes(e.target.tagName) || ["header-menu-wrapper", "logo_position", "menu_pc", "header-menu", "header-menu-wrapper", "header-menu-items", "header-menu-item"].includes(e.target.className)) {
+      if (["textPath", "BUTTON"].includes(e.target.tagName) || ["header-menu-wrapper", "logo_position", "menu_pc", "logo_text", "header-menu", "header-menu-wrapper", "header-menu-items", "header-menu-item", "header-menu-item-link"].includes(e.target.className)) {
         stalker.style.display = "none";
       } else {
         stalker.style.display = "block";
@@ -167,7 +180,7 @@ export default {
       width: 150px;
       height: 150px;
       backdrop-filter: blur(40px);
-      background-color: rgba(57, 76, 89, 0.32);
+      background-color: $top-headermenu-bg;
       border-radius: 50%;
 
       @include mq(lg) {
@@ -179,7 +192,7 @@ export default {
         height: 100px;
         border-radius: 50%;
         backdrop-filter: blur(40px);
-        background-color: rgba(57, 76, 89, 0.1);
+        background-color: $select-mouse-stalker-bg;
         transform: translate(25%, 25%);
         display: flex;
         flex-direction: column;
@@ -227,16 +240,19 @@ export default {
       top: 120px;
       left: 40px;
 
-      writing-mode: vertical-rl;
-      font-size: $font-xsm;
+      a {
+        writing-mode: vertical-rl;
+        font-size: $font-xsm;
 
-      -webkit-text-stroke: 1px $white;
-      color: transparent;
+        -webkit-text-stroke: 1px $white;
+        color: transparent;
+        text-decoration: none;
 
-      display: none;
+        display: none;
 
-      @include mq(lg) {
-        display: block;
+        @include mq(lg) {
+          display: block;
+        }
       }
     }
 
@@ -257,17 +273,6 @@ export default {
         left: 0;
         width: 100%;
         height: 100%;
-
-        /*
-        a {
-          transform-origin: center center;
-          animation: selectTextScaleOut 0.5s forwards;
-        }
-
-        a:hover {
-          animation: selectTextScaleOn 0.5s forwards;
-        }
-        */
       }
     }
   }
@@ -281,8 +286,6 @@ export default {
 
     @include mq(lg) {
       aspect-ratio: auto;
-      /*top: auto;
-      bottom: 250px;*/
       top: 650px;
       bottom: auto;
       left: -50px;

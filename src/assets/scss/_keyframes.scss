@@ -1,3 +1,4 @@
+/* ヘッダー */
 @keyframes menuScaleOn {
   0% {
     transform: scale(1);
@@ -15,6 +16,26 @@
 
   100% {
     transform: scale(1);
+  }
+}
+
+@keyframes menuTextScaleOn {
+  0% {
+    font-size: $font-xsm;
+  }
+
+  100% {
+    font-size: calc($font-xsm * 1.1);
+  }
+}
+
+@keyframes menuTextScaleOut {
+  0% {
+    font-size: calc($font-xsm * 1.1);
+  }
+
+  100% {
+    font-size: $font-xsm;
   }
 }
 
@@ -53,6 +74,27 @@
 @keyframes selectTextScaleOut {
   0% {
     transform: scale(1.05);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* イベント */
+@keyframes eventFocusScaleOn {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1.02);
+  }
+}
+
+@keyframes eventFocusScaleOut {
+  0% {
+    transform: scale(1.02);
   }
 
   100% {

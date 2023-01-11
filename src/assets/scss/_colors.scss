@@ -2,13 +2,43 @@ $white: #ffffff;
 $black: black;
 
 $color-bg: #001331;
+/* 091951 */
 
 $color-about-circle-bg: #eef9fa;
 
-$color-graph-text: #FB298E;
+/*$color-graph-text: #FB298E;*/
+$color-graph-text: rgba(1, 209, 209, 0.67);
 $color-job-company-bg: #353F6A;
 
 $color-tategaki1: rgba(151, 34, 111, 0.54);
 $color-tategaki2: rgba(81, 68, 160, 0.54);
 $color-about-shindan: rgba(137, 116, 195, 0.27);
 $color-about-shindan-selected: rgba(137, 116, 195, 0.7);
+
+$top-headermenu-bg: rgba(57, 76, 89, 0.32);
+
+$top-headermenu-bg-normal: rgb(57, 76, 89);
+
+$through-white: rgba(255, 255, 255, 0.3);
+
+$footer-bg: #486888;
+
+$header-bg: rgba(0, 19, 49, 0.2);
+
+$admission-th-bg: #f0e6cc;
+$admission-even-bg: #fbf8f0;
+$admission-odd-bg: #fefcf9;
+$admission-tabletitle-bg: #a899bc;
+$admission-cell-bg: #cdc9d6;
+$admission-empty-cell-bg: #373544;
+
+$class-about-teacher-bg: rgba(163, 136, 199, 0.35);
+
+$select-mouse-stalker-bg: rgba(57, 76, 89, 0.1);
+
+$answer-select-button-bg: rgba(217, 217, 217, 0.35);
+$answer-select-button-hover-bg: rgba(217, 217, 217, 0.5);
+
+$shindan-bg: #093c69;
+
+$drop-shadow: rgba(0, 0, 0, 0.5);

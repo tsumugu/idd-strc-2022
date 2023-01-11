@@ -1,7 +1,7 @@
 <template>
   <main class="bus">
     <HeaderComponent />
-    <TopPlanetComponent :imgPath='require("@/assets/imgs/about_idd/top1.png")' title="路線バス利用案内" />
+    <TopPlanetComponent :imgPath='require("@/assets/imgs/event/top5.png")' title="路線バス利用案内" />
     <div class="bus-inner font-bunkyu-midashi">
       <div class="bus-inner-selector">
         <div v-show="station == 'hashimoto'">
@@ -64,7 +64,6 @@
       </div>
       <OtherEventComponent class="event" />
     </div>
-    <BottomSpacer />
     <FooterComponent />
   </main>
 </template>
@@ -73,7 +72,6 @@
 import HeaderComponent from '@/components/HeaderComponent.vue';
 import FooterComponent from '@/components/FooterComponent.vue';
 import TopPlanetComponent from '@/components/TopPlanetComponent.vue';
-import BottomSpacer from '@/components/BottomSpacer.vue';
 import OtherEventComponent from '@/components/OtherEventComponent.vue';
 
 export default {
@@ -82,7 +80,6 @@ export default {
     HeaderComponent,
     FooterComponent,
     TopPlanetComponent,
-    BottomSpacer,
     OtherEventComponent
   },
   data() {
@@ -140,6 +137,12 @@ export default {
           display: flex;
           justify-content: center;
           align-items: center;
+
+          animation: eventFocusScaleOut 0.5s forwards;
+        }
+
+        .circle:hover {
+          animation: eventFocusScaleOn 0.5s forwards;
         }
       }
     }

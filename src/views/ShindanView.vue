@@ -5,13 +5,15 @@
       v-show="currPageNumber == 2"></div>
     <div class="shindan-inner">
       <HeaderComponent />
-      <div class="shindan-dialog-wrapper" v-show="isShowDialog">
-        <div class="shindan-dialog">
-          <p class="shindan-dialog-title font-bely">ERROR!</p>
-          <p class="shindan-dialog-text font-bunkyu-midashi">選択されていない項目があります<br>全ての項目を選択してください</p>
-          <button class="shindan-dialog-button" v-on:click="() => { this.isShowDialog = false; }">×</button>
+      <transition name="dialog">
+        <div class="shindan-dialog-wrapper" v-show="isShowDialog">
+          <div class="shindan-dialog">
+            <p class="shindan-dialog-title font-bely">ERROR!</p>
+            <p class="shindan-dialog-text font-bunkyu-midashi">選択されていない項目があります<br>全ての項目を選択してください</p>
+            <button class="shindan-dialog-button" v-on:click="() => { this.isShowDialog = false; }">×</button>
+          </div>
         </div>
-      </div>
+      </transition>
       <div class="top-bg" v-show="currPageNumber == 0"><img src="@/assets/imgs/shindan/top2.png"></div>
       <div class="shindan-main">
         <section class="about-section" v-show="currPageNumber == 0">
@@ -161,6 +163,7 @@ export default {
       // 数字が低ければ低いほど適正がある
       //console.log(sortedResMap, Array.from(sortedResMap)[0][0]);
       const topRes = Array.from(sortedResMap)[0][0];
+      //const topRes = abilities[6];
       this.resultClasses = topRes.classes;
       this.resultGenreName = topRes.genreName;
     },
@@ -201,6 +204,14 @@ export default {
       answer2: null,
       answer3: null,
       answer4: null,
+      /*
+      currPageNumber: 1,
+      answer0: 1,
+      answer1: 2,
+      answer2: 3,
+      answer3: 4,
+      answer4: 5,
+      */
       isShowDialog: false
     }
   }
@@ -209,6 +220,19 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/scss/main.scss';
+@import "@/assets/scss/_breakpoint.scss";
+@import "@/assets/scss/_mixin.scss";
+
+/* https://kasumiblog.org/vue-js-fadein-fadeout/ */
+.dialog-enter-active,
+.dialog-leave-active {
+  transition: all .2s;
+}
+
+.dialog-enter,
+.dialog-leave-to {
+  scale: 0;
+}
 
 .shindan {
   position: absolute;
@@ -221,6 +245,9 @@ export default {
   .shindan-inner {
     display: flex;
     justify-content: center;
+    flex-flow: column;
+
+    overflow: hidden;
   }
 
   ul,
@@ -251,7 +278,7 @@ export default {
 
     .shindan-dialog {
       backdrop-filter: blur(40px);
-      background-color: rgba(57, 76, 89, 0.32);
+      background-color: $top-headermenu-bg;
       display: inline-block;
       margin-top: 120px;
       padding: 86px 96px 0 96px;
@@ -302,7 +329,7 @@ export default {
         border-radius: 50px;
 
         backdrop-filter: blur(40px);
-        background-color: rgba(57, 76, 89);
+        background-color: $top-headermenu-bg-normal;
 
         font-family: bely-display, sans-serif;
         font-weight: 400;
@@ -310,7 +337,7 @@ export default {
       }
 
       .shindan-dialog-button:hover {
-        background: rgba(255, 255, 255, 0.3);
+        background: $through-white;
       }
     }
   }
@@ -323,8 +350,7 @@ export default {
     width: 130vw;
     height: 160vh;
     border-radius: 50%;
-    background-color: #093c69;
-    /*rgba(104, 255, 237, 0.15);*/
+    background-color: $shindan-bg;
   }
 
   .result-section-classes-bg-3 {
@@ -346,16 +372,22 @@ export default {
     z-index: 2;
     width: 70vw;
 
+    margin: 0 auto;
+
     img {
       width: 100%;
     }
 
     .about-section {
-      height: 200vh;
+      /*height: 200vh;*/
 
       .tategaki {
         writing-mode: vertical-rl;
-        font-size: $font-m;
+        font-size: $font-xsm;
+
+        @include mq(md) {
+          font-size: $font-sm;
+        }
 
         position: absolute;
         padding: 7px;
@@ -364,31 +396,56 @@ export default {
         .number {
           text-combine-upright: all;
           font-size: $font-x;
+
+          @include mq(md) {
+            font-size: $font-xm;
+          }
         }
 
       }
 
       .drop-shadow {
-        text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
+        text-shadow: 0px 4px 4px $drop-shadow;
       }
 
       .tategaki-1 {
-        top: 13%;
-        left: 5%;
+
+        /*top: 13%;
+        left: 5%;*/
+        top: 280px;
+        left: 10px;
+
+        @include mq(md) {
+          left: -60px;
+        }
 
         background-color: $color-tategaki1;
       }
 
       .tategaki-2 {
-        top: 6%;
-        right: 5%;
+
+        /*top: 6%;
+        right: 5%;*/
+        top: 170px;
+        right: 10px;
+
+        @include mq(md) {
+          right: -60px;
+        }
 
         background-color: $color-tategaki2;
       }
 
       .tategaki-3 {
-        top: 31%;
-        right: -15%;
+        /*top: 31%;
+        right: -15%;*/
+        top: 675px;
+        right: -120px;
+
+        @include mq(md) {
+          top: 460px;
+          right: -60px;
+        }
 
         border-radius: 0;
         padding: 0;
@@ -398,14 +455,24 @@ export default {
       }
 
       .about-shindan {
-        position: absolute;
+        /*position: absolute;
         top: 20%;
-        transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);*/
 
         display: inline-block;
         padding: 30px;
         background-color: $color-about-shindan;
         border-radius: 25px;
+
+        margin-top: 280px;
+
+        @include mq(md) {
+          /*position: inherit;
+          transform: none;*/
+          padding: 16px;
+          width: 60%;
+          margin-top: 180px;
+        }
 
         p {
           margin: 0;
@@ -425,18 +492,35 @@ export default {
       }
 
       .about-img {
-        position: absolute;
-        top: 35%;
+        /*position: absolute;
+        top: 35%;*/
+
+        /*@include mq(md) {*/
+        position: inherit;
+        margin-top: 92px;
+        width: 100%;
+        /*}*/
+
+        @include mq(md) {
+          margin-top: 48px;
+        }
       }
 
       .start-button {
-        position: absolute;
+        /*position: absolute;
         top: 83%;
         left: 50%;
-        transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);*/
 
         button {
-          margin: 0;
+          margin-top: 64px;
+          margin-bottom: 64px;
+
+          @include mq(md) {
+            margin-top: 32px;
+            margin-bottom: 32px;
+          }
+
           padding-top: 16px;
           padding-bottom: 16px;
           padding-left: 32px;
@@ -597,14 +681,14 @@ export default {
         margin-top: 100px;
 
         color: $white;
-        background-color: rgba(217, 217, 217, 0.35);
+        background-color: $answer-select-button-bg;
         border: none;
         border-radius: 50%;
         font-size: $font-sm;
       }
 
       .answer-result-button:hover {
-        background-color: rgba(217, 217, 217, 0.5);
+        background-color: $answer-select-button-hover-bg;
       }
     }
 
@@ -622,19 +706,19 @@ export default {
       .result-section-classes-pos-3 {
         position: absolute;
         top: 200px;
-        left: calc(360px / -2 + 32px);
+        left: calc(50% - 360px - 180px - 32px);
       }
 
       .result-section-classes-pos-4 {
         position: absolute;
         top: 300px;
-        left: calc(360px / -2 + 32px);
+        left: calc(50% - 360px - 360px - 16px);
       }
 
       .result-section-classes-pos-5 {
         position: absolute;
         top: 200px;
-        left: calc(360px / -2 + 32px);
+        left: calc(50% - 360px - 180px - 16px);
       }
 
       .result-section-classes {
@@ -766,7 +850,7 @@ export default {
           .result-section-area2-retryandshare-retry {
             button {
               color: $white;
-              background-color: rgba(217, 217, 217, 0.35);
+              background-color: $answer-select-button-bg;
               border: none;
               padding: 36px;
               border-radius: 100px;
@@ -774,7 +858,7 @@ export default {
             }
 
             button:hover {
-              background-color: rgba(217, 217, 217, 0.5);
+              background-color: $answer-select-button-hover-bg;
             }
           }
 

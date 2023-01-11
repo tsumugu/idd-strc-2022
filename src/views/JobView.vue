@@ -5,7 +5,7 @@
     <div class="job-inner">
       <div class="job-graph">
         <div class="job-graph-img">
-          <img src="@/assets/imgs/job/graph.png">
+          <img src="@/assets/imgs/job/graph2.png">
         </div>
         <div class="job-graph-text">
           <p class="job-graph-text-title font-bunkyu-midashi">就職率</p>
@@ -81,7 +81,6 @@
         <img src="@/assets/imgs/job/shikaku.png" class="job-shikaku-img">
       </div>
     </div>
-    <BottomSpacer />
     <FooterComponent />
   </main>
 </template>
@@ -90,31 +89,35 @@
 import HeaderComponent from '@/components/HeaderComponent.vue';
 import FooterComponent from '@/components/FooterComponent.vue';
 import TopPlanetComponent from '@/components/TopPlanetComponent.vue';
-import BottomSpacer from '@/components/BottomSpacer.vue';
 
 export default {
   name: 'JobView',
   components: {
     HeaderComponent,
     FooterComponent,
-    TopPlanetComponent,
-    BottomSpacer
+    TopPlanetComponent
   }
 }
 </script>
 
 <style lang="scss" scoped>
 @import '@/assets/scss/main.scss';
+@import "@/assets/scss/_breakpoint.scss";
+@import "@/assets/scss/_mixin.scss";
 
 .job {
   color: $white;
-  background-color: #0C184E;
+  background-color: $color-bg;
   width: 100vw;
 
   .job-inner {
     position: relative;
     z-index: 10;
     margin-top: -20%;
+
+    @include mq(lg) {
+      margin-top: 0;
+    }
   }
 
   .job-graph {
@@ -122,9 +125,14 @@ export default {
     justify-content: center;
     align-items: center;
 
-    width: 80%;
-    margin: 0 auto;
+    width: 60%;
+    margin: 0 auto 48px auto;
     padding: 32px;
+
+    @include mq(lg) {
+      flex-flow: column;
+      margin: 32px auto 24px auto;
+    }
 
     .job-graph-img {
       width: 100%;
@@ -137,6 +145,10 @@ export default {
       img {
         width: 90%;
       }
+
+      @include mq(lg) {
+        margin-bottom: 24px;
+      }
     }
 
     .job-graph-text {
@@ -147,12 +159,21 @@ export default {
         font-size: $font-m;
         line-height: $font-x;
         text-align: left;
+
+        @include mq(lg) {
+          font-size: $font-sm;
+          line-height: $font-m;
+        }
       }
 
       .job-graph-text-per {
         font-size: $font-xl;
         line-height: $font-xsl;
         color: $color-graph-text;
+
+        @include mq(lg) {
+          font-size: $font-x;
+        }
       }
     }
   }
@@ -162,27 +183,44 @@ export default {
 
     padding: 32px;
 
+    @include mq(lg) {
+      width: calc(100% - 36px);
+      padding: 18px;
+    }
+
     background: $color-job-company-bg;
     backdrop-filter: blur(2px);
 
     .job-company {
       display: grid;
       width: 70%;
-
-      border: 1px solid $white;
       border-radius: 26px;
 
       margin: 0 auto;
       padding: 32px 64px 32px 64px;
 
+      @include mq(lg) {
+        width: 100%;
+        padding: 0;
+      }
+
       .job-company-main-title {
         font-size: $font-sm;
         width: 100%;
+
+        @include mq(lg) {
+          width: calc(100% - 18px);
+        }
       }
 
       .job-company-description {
         font-size: $font-s;
         width: 100%;
+
+        @include mq(lg) {
+          width: calc(100% - 18px);
+        }
+
         text-align: left;
       }
 
@@ -191,15 +229,24 @@ export default {
         font-weight: bold;
         width: 100%;
         text-align: left;
+
+        @include mq(lg) {
+          width: calc(100% - 18px);
+        }
       }
 
       .job-company-companies {
         width: 100%;
+
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
         gap: 64px;
         text-align: left;
 
+        @include mq(lg) {
+          grid-template-columns: 1fr;
+          gap: 32px;
+        }
 
         .job-company-companies-column {
           .job-company-companies-column-item {
@@ -209,8 +256,6 @@ export default {
               font-size: $font-s;
               font-weight: bold;
             }
-
-            .job-company-companies-column-text {}
           }
         }
       }
@@ -223,9 +268,15 @@ export default {
     .job-shikaku-title {
       font-size: $font-sm;
       margin: 64px;
+
+      @include mq(lg) {
+        margin: 32px;
+      }
     }
 
-    .job-shikaku-img {}
+    .job-shikaku-img {
+      width: 100%;
+    }
   }
 }
 

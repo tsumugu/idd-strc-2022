@@ -18,6 +18,8 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/scss/main.scss';
+@import "@/assets/scss/_breakpoint.scss";
+@import "@/assets/scss/_mixin.scss";
 
 .img-wrapper {
   img {
@@ -49,11 +51,16 @@ export default {
 
 
   backdrop-filter: blur(40px);
-  background-color: rgba(57, 76, 89, 0.32);
+  background-color: $top-headermenu-bg;
 
   padding: 10px 30px 10px 30px;
   border-radius: 40px;
 
   display: inline-block;
+
+  @include mq(lg) {
+    bottom: -140px;
+    font-size: $font-sm;
+  }
 }
 </style>

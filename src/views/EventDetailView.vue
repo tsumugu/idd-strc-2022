@@ -1,7 +1,7 @@
 <template>
   <main class="event-detail">
     <HeaderComponent />
-    <TopPlanetComponent :imgPath='require("@/assets/imgs/about_idd/top1.png")' title="イベント情報" />
+    <TopPlanetComponent :imgPath='require("@/assets/imgs/event/top5.png")' title="イベント情報" />
     <div class="event-detail-inner">
       <p class="event-detail-inner-title font-bunkyu-midashi">{{ eventName }}</p>
       <img :src=bannerImg class="event-detail-inner-banner" />
@@ -81,7 +81,6 @@
         </div>
       </div>
     </div>
-    <BottomSpacer />
     <FooterComponent />
   </main>
 </template>
@@ -90,7 +89,6 @@
 import HeaderComponent from '@/components/HeaderComponent.vue';
 import FooterComponent from '@/components/FooterComponent.vue';
 import TopPlanetComponent from '@/components/TopPlanetComponent.vue';
-import BottomSpacer from '@/components/BottomSpacer.vue';
 
 const events = {
   "oc": {
@@ -112,8 +110,7 @@ export default {
   components: {
     HeaderComponent,
     FooterComponent,
-    TopPlanetComponent,
-    BottomSpacer
+    TopPlanetComponent
   },
   data() {
     return {
@@ -204,6 +201,8 @@ export default {
           align-items: center;
 
           .circle {
+            animation: eventFocusScaleOut 0.5s forwards;
+
             a {
               width: 345px;
               height: 345px;
@@ -218,6 +217,10 @@ export default {
               text-decoration: none;
               font-size: $font-m;
             }
+          }
+
+          .circle:hover {
+            animation: eventFocusScaleOn 0.5s forwards;
           }
         }
       }

@@ -1,7 +1,7 @@
 <template>
   <main class="access">
     <HeaderComponent />
-    <TopPlanetComponent :imgPath='require("@/assets/imgs/about_idd/top1.png")' title="アクセス" />
+    <TopPlanetComponent :imgPath='require("@/assets/imgs/event/top5.png")' title="アクセス" />
     <div class="access-inner">
       <div class="access-inner-campus">
         <div class="access-inner-campus-imgwrapper">
@@ -50,7 +50,6 @@
       </div>
       <OtherEventComponent class="access-inner-event" />
     </div>
-    <BottomSpacer />
     <FooterComponent />
   </main>
 </template>
@@ -59,7 +58,6 @@
 import HeaderComponent from '@/components/HeaderComponent.vue';
 import FooterComponent from '@/components/FooterComponent.vue';
 import TopPlanetComponent from '@/components/TopPlanetComponent.vue';
-import BottomSpacer from '@/components/BottomSpacer.vue';
 import OtherEventComponent from '@/components/OtherEventComponent.vue';
 
 export default {
@@ -68,7 +66,6 @@ export default {
     HeaderComponent,
     FooterComponent,
     TopPlanetComponent,
-    BottomSpacer,
     OtherEventComponent
   }
 }
@@ -90,21 +87,23 @@ export default {
 
     .access-inner-campus {
       grid-template-columns: 1fr 30%;
-      margin-bottom: 120px;
+      margin: 0 auto 120px auto;
     }
 
     .access-inner-campusaccess {
       grid-template-columns: 30% 1fr;
       margin-bottom: 60px;
+      margin: 0 auto 60px auto;
     }
 
     .access-inner-campus,
     .access-inner-campusaccess {
-      width: 100%;
+      width: 85%;
       display: grid;
       gap: 70px;
 
       .access-inner-campus-imgwrapper,
+      .access-inner-campusaccess-imgwrapper,
       .access-inner-campusaccess {
         img {
           width: 100%;

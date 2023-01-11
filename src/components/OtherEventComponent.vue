@@ -41,6 +41,12 @@ export default {
       color: $white;
       text-decoration: none;
       font-size: $font-m;
+
+      animation: eventFocusScaleOut 0.5s forwards;
+    }
+
+    a:hover {
+      animation: eventFocusScaleOn 0.5s forwards;
     }
   }
 }

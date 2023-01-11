@@ -138,7 +138,7 @@ export default {
     border-radius: 120px;
     margin: 28px;
     padding: 30px;
-    background-color: rgba(163, 136, 199, 0.35);
+    background-color: $class-about-teacher-bg;
 
     .midashi {
       margin-top: 0;
@@ -188,7 +188,7 @@ export default {
           border-radius: 54px;
           margin: 28px;
           padding: 30px;
-          background-color: rgba(163, 136, 199, 0.35);
+          background-color: $class-about-teacher-bg;
 
           display: inline-block;
 
@@ -229,7 +229,7 @@ export default {
         .class-about-teacher-igaina::before {
           position: absolute;
           border-right: 18px solid transparent;
-          border-bottom: calc(18px * 1.41421356) solid rgba(163, 136, 199, 0.35);
+          border-bottom: calc(18px * 1.41421356) solid $class-about-teacher-bg;
           border-left: 18px solid transparent;
           transform: rotate(-55deg);
           content: "";
@@ -263,7 +263,7 @@ export default {
         .class-about-teacher-igaina::before {
           position: absolute;
           border-right: 18px solid transparent;
-          border-bottom: calc(18px * 1.41421356) solid rgba(163, 136, 199, 0.35);
+          border-bottom: calc(18px * 1.41421356) solid $class-about-teacher-bg;
           border-left: 18px solid transparent;
           content: "";
           top: calc(-18px * 2);
@@ -277,7 +277,7 @@ export default {
 
   .class-about-facilities {
     width: 100vw;
-    background-color: rgba(163, 136, 199, 0.35);
+    background-color: $class-about-teacher-bg;
     padding: 60px;
     margin-bottom: 56px;
 

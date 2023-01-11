@@ -1,20 +1,19 @@
 <template>
-  <div class="footer">
+  <div class="footer" ref="footer">
     <div id="button"></div>
     <div id="container">
       <div id="cont">
         <div class="footer_center">
           <h1>SITE MAP</h1>
-          <h2>-情報デザイン学科とは</h2>
-          <h3>-情報デザイン診断</h3>
-          <h4>-就職・資格</h4>
-          <h5>-入試方法</h5>
-          <h6>-イベント・アクセス</h6>
+          <h2><a href="/about-idd">-情報デザインとは</a></h2>
+          <h3><a href="/shindan">-情報デザイン診断</a></h3>
+          <h4><a href="/job">-就職・資格</a></h4>
+          <h5><a href="/admission">-入試方法</a></h5>
+          <h6><a href="/event">-イベント・アクセス</a></h6>
           <div>
             <img src="@/assets/imgs/header_footer/twitter.png" class="share1">
             <div>
               <img src="@/assets/imgs/header_footer/instagram.png" class="share2">
-
               <div>
                 <img src="@/assets/imgs/header_footer/nekoyanagi.png" class="nekoyanagi">
               </div>
@@ -28,7 +27,14 @@
 
 <script>
 export default {
-  name: 'FooterComponent'
+  name: 'FooterComponent',
+  mounted: function () {
+    this.$refs.footer.addEventListener('mouseover', () => {
+      const element = document.documentElement;
+      const bottom = element.scrollHeight - element.clientHeight + 500;
+      window.scroll(0, bottom);
+    });
+  }
 }
 </script>
 
@@ -45,11 +51,12 @@ export default {
   position: absolute;
   width: 1735px;
   height: 988px;
-  left: -144px;
-  border: #486888 12px solid;
-  border-top-left-radius: 50%100%;
-  border-top-right-radius: 50%100%;
-  background: #486888;
+  /*left: -144px;*/
+  left: -12px;
+  border: $footer-bg 12px solid;
+  border-top-left-radius: 50% 100%;
+  border-top-right-radius: 50% 100%;
+  background: $footer-bg;
   margin: 0 auto;
   position: relative;
   -moz-transition: all 1s ease;
@@ -61,7 +68,7 @@ export default {
 .footer #button:hover {
   width: 35px;
   height: 35px;
-  border: #486888 12px solid;
+  border: $footer-bg 12px solid;
   -moz-transition: all 1s ease;
   -o-transition: all 1s ease;
   -ms-transition: all 1s ease;
@@ -70,9 +77,11 @@ export default {
 }
 
 .footer {
+  /*
   bottom: 0;
   left: -15px;
   position: fixed;
+  */
   width: 100%;
   height: 60px;
   /*下から最初どれだけ出てるか*/
@@ -123,6 +132,11 @@ export default {
   width: 500px;
   float: left;
   text-align: center;
+
+  a {
+    color: $white;
+    text-decoration: none;
+  }
 }
 
 .footer h1 {
@@ -133,7 +147,7 @@ export default {
   font-weight: 100;
   margin-top: 60px;
   margin-left: 40px;
-  color: white;
+  color: $white;
 }
 
 .footer h2,
@@ -148,7 +162,7 @@ h6 {
   font-size: $font-s;
   font-weight: 100;
   margin-left: 40px;
-  color: white;
+  color: $white;
 }
 
 .share1 {

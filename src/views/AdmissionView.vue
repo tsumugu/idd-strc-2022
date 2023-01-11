@@ -4,7 +4,7 @@
     <TopPlanetComponent :imgPath='require("@/assets/imgs/admission/top4.png")' title="入試方法" />
     <div class="admission-inner">
       <div class="types">
-        <div>
+        <div class="circles">
           <div class="type-circle circle-1">
             <p class="type-circle-title">一般入試</p>
             <p>美大といえばこの入試方法<br><span>実技</span>と<span>学科</span>で入学できる</p>
@@ -22,7 +22,7 @@
             <p><span>ポートフォリオ</span>などで作品を<br>見て判断してもらえる</p>
           </div>
         </div>
-        <div>
+        <div class="title">
           <div class="tategaki">入試方法は<span>４</span>種類！</div>
         </div>
       </div>
@@ -78,8 +78,8 @@
         <div><img src="@/assets/imgs/admission/graph.png"></div>
       </div>
       <div class="kamoku">
-        <div class="section-title">科目</div>
         <div class="font-bunkyu-midashi kamoku-item">
+          <div class="section-title">科目</div>
           <p class="kamoku-title">一般選抜</p>
           <p class="kamoku-body">国語｜国語総合（古文、漢文を除く）、国語表現、なお小論文を課す。<br>英語｜コミュニケーション英語 I・II専門試験｜鉛筆デッサン、視覚表現</p>
           <p class="kamoku-title">一般選抜［共通テスト併用方式］</p>
@@ -118,7 +118,6 @@
         </div>
       </div>
     </div>
-    <BottomSpacer />
     <FooterComponent />
   </main>
 </template>
@@ -127,13 +126,11 @@
 import HeaderComponent from '@/components/HeaderComponent.vue';
 import FooterComponent from '@/components/FooterComponent.vue';
 import TopPlanetComponent from '@/components/TopPlanetComponent.vue';
-import BottomSpacer from '@/components/BottomSpacer.vue';
 export default {
   name: 'AdmissionView',
   components: {
     HeaderComponent,
     FooterComponent,
-    BottomSpacer,
     TopPlanetComponent
   }
 }
@@ -141,6 +138,8 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/scss/main.scss';
+@import "@/assets/scss/_breakpoint.scss";
+@import "@/assets/scss/_mixin.scss";
 
 .schedule,
 .ninzu,
@@ -151,7 +150,7 @@ export default {
 
 .admission {
   color: $white;
-  background-color: #0C184E;
+  background-color: $color-bg;
   width: 100vw;
 
   .admission-inner {
@@ -159,6 +158,10 @@ export default {
     position: relative;
     margin-top: -200px;
     z-index: 888;
+
+    @include mq(lg) {
+      width: 100%;
+    }
 
     .section-title {
       font-family: toppan-bunkyu-midashi-go-std, sans-serif;
@@ -182,23 +185,55 @@ export default {
     .types {
       display: grid;
       grid-template-columns: 800px 100px;
+      justify-content: center;
+      align-items: center;
+
+      @include mq(lg) {
+        display: block;
+      }
+
+      .circles {
+        @include mq(lg) {
+          display: grid;
+          grid-template-columns: 1fr;
+          justify-content: center;
+          align-items: center;
+          place-items: center;
+        }
+      }
+
 
       .circle-2,
       .circle-4 {
         margin-top: -100px;
         margin-left: 340px;
+
+        @include mq(lg) {
+          margin-top: 0;
+          margin-left: 0;
+        }
       }
 
       .circle-2,
       .circle-3,
       .circle-4 {
         margin-top: -100px;
+
+        @include mq(lg) {
+          margin-top: 0;
+        }
+      }
+
+      .title {
+        @include mq(lg) {
+          display: none;
+        }
       }
 
       .tategaki {
         display: inline-block;
 
-        margin-left: -220px;
+        /*margin-left: -220px;*/
 
         font-family: toppan-bunkyu-midashi-go-std, sans-serif;
         font-weight: 900;
@@ -206,7 +241,7 @@ export default {
         writing-mode: vertical-rl;
         font-size: $font-m;
         padding-bottom: 2px;
-        border-right: solid 3px #ffffff;
+        border-right: solid 3px $white;
         line-height: 1;
 
         span {
@@ -225,6 +260,11 @@ export default {
         width: 340px;
         height: 340px;
 
+        @include mq(lg) {
+          width: 240px;
+          height: 240px;
+        }
+
         background: $color-job-company-bg;
         backdrop-filter: blur(2px);
 
@@ -239,6 +279,10 @@ export default {
 
         .type-circle-title {
           margin: $font-m;
+
+          @include mq(lg) {
+            margin: $font-s;
+          }
         }
 
         p {
@@ -248,12 +292,13 @@ export default {
 
         span {
           padding-bottom: 2px;
-          border-bottom: solid 3px #ffffff;
+          border-bottom: solid 3px $white;
         }
       }
     }
 
     .schedule {
+      display: inline-block;
 
       table,
       td,
@@ -271,28 +316,28 @@ export default {
       }
 
       th {
-        background: #f0e6cc;
+        background: $admission-th-bg;
       }
 
       .even {
-        background: #fbf8f0;
+        background: $admission-even-bg;
       }
 
       .odd {
-        background: #fefcf9;
+        background: $admission-odd-bg;
       }
 
       .title_column,
       .title_row {
-        background: #a899bc;
+        background: $admission-tabletitle-bg;
       }
 
       .title_column {
-        color: black;
+        color: $black;
       }
 
       .title_row {
-        color: white;
+        color: $white;
       }
 
       .transparent_cell {
@@ -300,22 +345,20 @@ export default {
       }
 
       .cell {
-        background: #cdc9d6;
+        background: $admission-cell-bg;
       }
 
       .empty_cell {
-        background: #373544;
+        background: $admission-empty-cell-bg;
       }
     }
 
+    .ninzu {
+      display: inline-block;
+    }
+
     .kamoku {
-      .kamoku-item {
-        background: $color-job-company-bg;
-        backdrop-filter: blur(2px);
-        padding: 20px 60px 20px 60px;
-        width: 50%;
-        border-radius: 50px;
-      }
+      display: inline-block;
 
       .kamoku-title {
         margin-top: 35px;
@@ -326,9 +369,20 @@ export default {
         margin-top: 30px;
         font-size: $font-s;
       }
+
+      .kamoku-item {
+        width: 80%;
+        margin: 0 auto;
+
+        .section-title {
+          margin-top: 130px;
+        }
+      }
     }
 
     .hennyu {
+      display: inline-block;
+
       .hennyu-title {
         margin: 0;
         font-size: $font-sm;
